@@ -16,7 +16,7 @@ export const Button = ({
   return (
     <button
       type={type}
-      className="px-4 py-3 rounded-full bg-black text-white text-base font-bold text-center transition-colors duration-200 active:cursor-pointer active:bg-(--mainColor-active) disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-black hover:cursor-pointer hover:bg-(--mainColor-hover) [@media(hover:hover):hover:bg-(--mainColor-hover)]"
+      className="px-[1rem] py-3 rounded-2xl bg-black text-white text-base font-bold text-center transition-colors duration-200 active:cursor-pointer active:bg-(--mainColor-active) disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-black hover:cursor-pointer hover:bg-(--mainColor-hover) [@media(hover:hover):hover:bg-(--mainColor-hover)]"
       disabled={disabled}
       onClick={onClick}
     >
