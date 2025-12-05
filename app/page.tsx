@@ -27,7 +27,7 @@ export default function Home() {
         id="example"
         placeholder="Example"
         value={value}
-        change={setValue}
+        onChange={setValue}
       />
 
       <Toggler
