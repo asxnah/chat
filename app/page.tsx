@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/ui/Button";
 import { Confirm } from "@/ui/Confirm";
 import { Input } from "@/ui/Input";
 import { Toggler } from "@/ui/Toggler";
+import { Form } from "@/widgets/Form";
 
 export default function Home() {
   const [value, setValue] = useState<string>("");
@@ -34,6 +35,11 @@ export default function Home() {
         content="Toggler"
         checked={checked}
         onToggle={() => setChecked((prev) => !prev)}
+      />
+
+      <Form
+        buttonText="Submit"
+        onSubmit={(userInfo) => console.log(userInfo)}
       />
     </main>
   );
