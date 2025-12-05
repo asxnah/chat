@@ -20,7 +20,12 @@
     ],
     "paths": {
       "@/*": ["./app/*"],
-      "@/store/": ["./app/store/*"]
+      "@/store/": ["./app/store/*"],
+      "@/ui/*": ["./app/shared/ui/*"],
+      "@/lib/*": ["./app/shared/lib/*"],
+      "@/components/*": ["./app/components/*"],
+      "@/icons/*": ["./app/shared/icons/*"],
+      "@/types/*": ["./app/shared/types/*"]
     }
   },
   "include": [

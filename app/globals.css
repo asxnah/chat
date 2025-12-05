@@ -1,1 +1,107 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "Open Sans Variable";
+  src: url("/Open_Sans/OpenSans-VariableFont_wdth\,wght.ttf")
+    format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* font */
+  font-family: "Open Sans Variable", sans-serif;
+  color: var(--black);
+  background-color: var(--white);
+
+  /* dimensions */
+  --width: 32rem;
+
+  /* scrollbar */
+  ::-webkit-scrollbar {
+    width: 0.375rem;
+    background-color: var(--white);
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 0.375rem;
+    background-color: var(--stroke);
+  }
+
+  /* colors */
+  /* base */
+  --black: #1f1f1f;
+  --black-hover: #2e2e2e;
+  --black-active: #3d3d3d;
+
+  --darkgrey: #808080;
+  --lightgrey: #cccccc;
+  --white: #fcfcfc;
+
+  /* ui */
+  --mainColor: var(--black);
+  --mainColor-hover: var(--black-hover);
+  --mainColor-active: var(--black-active);
+  --mainColor: var(--black);
+  --stroke: #ededed;
+  --fill: #f2f2f2;
+  --screen-dim: rgba(26, 28, 31, 0.15);
+
+  /* other */
+  --red: #d9566c;
+  --red-hover: #e55c73;
+  --red-active: #f26179;
+
+  --orange: #e5955c;
+  --orange-hover: #f29d61;
+  --orange-active: #ffa666;
+
+  --maize: #e5e55c;
+  --maize-hover: #f2f261;
+  --maize-active: #ffff66;
+
+  --pear: #c3e55c;
+  --pear-hover: #cef261;
+  --pear: #d9ff66;
+
+  --green: #8ae55c;
+  --green-hover: #91f261;
+  --green-active: #99ff66;
+
+  --malachite: #5ce567;
+  --malachite-hover: #61f26d;
+  --malachite-active: #66ff73;
+
+  --aquamarine: #5ce5a1;
+  --aquamarine-hover: #61f2aa;
+  --aquamarine-active: #66ffb2;
+
+  --turquoise: #5ce5da;
+  --turquoise-hover: #61f2e6;
+  --turquoise-active: #66fff2;
+
+  --blue-crayola: #5c7ee5;
+  --blue-crayola-hover: #6186f2;
+  --blue-crayola-active: #668dff;
+
+  --state-blue: #735ce5;
+  --state-blue-hover: #7961f2;
+  --state-blue-active: #8066ff;
+
+  --amethyst: #ac5ce5;
+  --amethyst-hover: #b661f2;
+  --amethyst-active: #bf66ff;
+
+  --orchid: #e55ce5;
+  --orchid-hover: #f261f2;
+  --orchid-active: #ff66ff;
+
+  --brilliant-rose: #e55cac;
+  --brilliant-rose-hover: #f261b6;
+  --brilliant-rose-active: #ff66c0;
+}
+
+main {
+  height: 100vh;
+  width: 100%;
+}
