@@ -20,12 +20,12 @@
     ],
     "paths": {
       "@/*": ["./app/*"],
-      "@/store/": ["./app/store/*"],
-      "@/ui/*": ["./app/shared/ui/*"],
-      "@/lib/*": ["./app/shared/lib/*"],
-      "@/widgets/*": ["./app/widgets/*"],
-      "@/icons/*": ["./app/shared/icons/*"],
-      "@/types/*": ["./app/shared/types/*"]
+      "@store/": ["./app/store/*"],
+      "@ui/*": ["./app/shared/ui/*"],
+      "@lib/*": ["./app/shared/lib/*"],
+      "@widgets/*": ["./app/widgets/*"],
+      "@icons/*": ["./app/shared/icons/*"],
+      "@types/*": ["./app/shared/types/*"]
     }
   },
   "include": [
