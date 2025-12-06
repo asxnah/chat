@@ -46,7 +46,7 @@ export default function Home() {
           checked={checked}
           onToggle={() => setChecked((prev) => !prev)}
         />
-        <div className="w-full p-4 bg-neutral-500">
+        <div className="w-full p-4 border-y border-y-(--lightgrey)">
           <Form
             buttonText="Submit"
             onSubmit={(userInfo) => console.log(userInfo)}
