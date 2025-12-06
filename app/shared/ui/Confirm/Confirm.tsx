@@ -21,13 +21,13 @@ export const Confirm = ({ content, submit, onDecline }: ConfirmProps) => {
       <div className="flex">
         <button
           type="submit"
-          className="flex-1 p-3 px-4 border-0 text-center text-base text-(--red)"
+          className="flex-1 p-3 px-4 border-0 text-center text-base text-(--red) cursor-pointer"
         >
           Yes
         </button>
         <button
           type="button"
-          className="flex-1 p-3 px-8 border-0 text-center text-base"
+          className="flex-1 p-3 px-8 border-0 text-center text-base cursor-pointer"
           onClick={onDecline}
         >
           No
