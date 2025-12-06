@@ -30,7 +30,7 @@ export const Input = ({
       value={value}
       onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
       placeholder={placeholder}
-      className="px-[1rem] py-3 border-[0.0625rem] border-(--fill) rounded-2xl bg-(--fill) caret-(--darkgrey) text-(--black) text-base font-normal transition-colors duration-200 focus-visible:outline-none focus-visible:border-(--lightgrey) placeholder:text-(--darkgrey) placeholder:text-base"
+      className="px-8 py-3 border-1 border-(--fill) rounded-2xl bg-(--fill) caret-(--darkgrey) text-(--black) text-base transition-colors duration-200 focus-visible:outline-none focus-visible:border-(--lightgrey) placeholder:text-(--darkgrey) placeholder:text-base"
       minLength={minLength}
       maxLength={maxLength}
       required

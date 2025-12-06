@@ -24,9 +24,9 @@ export const Toggler = ({ content, checked, onToggle }: TogglerProps) => {
             rx="8"
           />
           <circle
-            className={`pointer-events-none duration-200 ${
+            className={`${
               checked ? "translate-x-4" : "translate-x-0"
-            }`}
+            } pointer-events-none duration-200`}
             cx="8"
             cy="8"
             r="8"
