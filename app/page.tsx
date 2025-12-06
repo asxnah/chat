@@ -41,19 +41,21 @@ export default function Home() {
           value={value}
           onChange={setValue}
         />
-        <Toggler
-          content="Toggler"
-          checked={checked}
-          onToggle={() => setChecked((prev) => !prev)}
-        />
-        <div className="w-full p-4 border-y border-y-(--lightgrey)">
+        <div className="w-full border-y border-y-(--lightgrey)">
+          <Toggler
+            content="Toggler"
+            checked={checked}
+            onToggle={() => setChecked((prev) => !prev)}
+          />
+        </div>
+        <div className="w-full p-4 border-b border-b-(--lightgrey)">
           <Form
             buttonText="Submit"
             onSubmit={(userInfo) => console.log(userInfo)}
           />
         </div>
         <button
-          className="underline my-4 cursor-pointer"
+          className="w-full border-b border-b-(--lightgrey) underline py-4 cursor-pointer"
           onClick={() => setPopupShown(true)}
         >
           Click to open popup
@@ -65,20 +67,22 @@ export default function Home() {
             onClose={() => setPopupShown(false)}
           />
         )}
-        <User
-          type="account"
-          name="Example account"
-          email="example@email.com"
-          avatar="https://i.pinimg.com/736x/90/2a/c5/902ac5d9530185d81b4f3f91b9fd7c17.jpg"
-          onClick={() => console.log("User account")}
-        />
-        <User
-          type="contact"
-          name="Example contact"
-          email="example@email.com"
-          avatar="https://i.pinimg.com/736x/3e/a8/f1/3ea8f18e9888280073e6627bd6c12969.jpg"
-          onClick={() => console.log("User contact")}
-        />
+        <div className="w-full border-b border-b-(--lightgrey) py-4">
+          <User
+            type="account"
+            name="Example account"
+            email="example@email.com"
+            avatar="https://i.pinimg.com/736x/90/2a/c5/902ac5d9530185d81b4f3f91b9fd7c17.jpg"
+            onClick={() => console.log("User account")}
+          />
+          <User
+            type="contact"
+            name="Example contact"
+            email="example@email.com"
+            avatar="https://i.pinimg.com/736x/3e/a8/f1/3ea8f18e9888280073e6627bd6c12969.jpg"
+            onClick={() => console.log("User contact")}
+          />
+        </div>
       </main>
     </>
   );
