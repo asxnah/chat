@@ -31,13 +31,11 @@
   /* colors */
   /* base */
   --black: #1f1f1f;
-
   --darkgrey: #808080;
   --lightgrey: #cccccc;
   --white: #fcfcfc;
 
   /* ui */
-  --mainColor: var(--black);
   --stroke: #ededed;
   --fill: #f2f2f2;
   --screen-dim: rgba(26, 28, 31, 0.15);
