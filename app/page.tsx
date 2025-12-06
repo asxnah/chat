@@ -20,7 +20,14 @@ export default function Home() {
     <>
       <TabBar />
       <main className="p-4 flex flex-col gap-2 overflow-scroll h-screen">
-        <Button content="Test" onClick={() => console.log("Click")} />
+        <div className="grid grid-cols-[auto_auto] gap-2">
+          <Button content="Test" onClick={() => console.log("Click")} />
+          <Button
+            content="Test"
+            onClick={() => console.log("Click")}
+            disabled
+          />
+        </div>
         <div className="w-full p-4 bg-neutral-200">
           <Confirm
             content="Confirm?"
