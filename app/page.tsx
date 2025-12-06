@@ -46,10 +46,12 @@ export default function Home() {
           checked={checked}
           onToggle={() => setChecked((prev) => !prev)}
         />
-        <Form
-          buttonText="Submit"
-          onSubmit={(userInfo) => console.log(userInfo)}
-        />
+        <div className="w-full p-4 bg-neutral-500">
+          <Form
+            buttonText="Submit"
+            onSubmit={(userInfo) => console.log(userInfo)}
+          />
+        </div>
         <button
           className="underline my-4 cursor-pointer"
           onClick={() => setPopupShown(true)}
