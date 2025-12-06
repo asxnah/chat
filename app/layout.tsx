@@ -1,22 +1,22 @@
-import type { Metadata } from 'next';
-import { ReduxProvider } from '@/reduxProvider';
-import './globals.css';
+import type { Metadata } from "next";
+import { ReduxProvider } from "@/reduxProvider";
+import "./globals.css";
 
 export const metadata: Metadata = {
-	title: 'Chat App',
-	description: 'Chat app',
+  title: "Chat App",
+  description: "Chat app",
 };
 
 export default function RootLayout({
-	children,
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-	return (
-		<html lang='en'>
-			<body className='h-[100vh] flex'>
-				<ReduxProvider>{children}</ReduxProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body className="h-[100vh] flex">
+        <ReduxProvider>{children}</ReduxProvider>
+      </body>
+    </html>
+  );
 }
