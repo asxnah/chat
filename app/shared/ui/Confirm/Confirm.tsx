@@ -21,13 +21,13 @@ export const Confirm = ({ content, submit, onDecline }: ConfirmProps) => {
       <div className="flex">
         <button
           type="submit"
-          className="flex-1 p-3 px-4 border-0 bg-none text-center text-base font-normal transition-colors duration-200 active:(--bg-fill) text-(--red)"
+          className="flex-1 p-3 px-4 border-0 bg-none text-center text-base font-normal transition-colors duration-200 text-(--red)"
         >
           Yes
         </button>
         <button
           type="button"
-          className="flex-1 p-3 px-8 border-0 bg-none text-center text-base font-normal transition-colors duration-200 active:(--bg-fill)"
+          className="flex-1 p-3 px-8 border-0 bg-none text-center text-base font-normal transition-colors duration-200"
           onClick={onDecline}
         >
           No
