@@ -14,14 +14,14 @@ export const Confirm = ({ content, submit, onDecline }: ConfirmProps) => {
 
   return (
     <form
-      className="w-75 rounded-xl bg-(--white) overflow-hidden"
+      className="w-75 rounded-xl bg-white overflow-hidden"
       onSubmit={onSubmit}
     >
       <p className="p-4">{content}</p>
       <div className="flex">
         <button
           type="submit"
-          className="flex-1 p-3 px-4 border-0 text-center text-base text-(--red) cursor-pointer"
+          className="flex-1 p-3 px-4 border-0 text-center text-base text-red cursor-pointer"
         >
           Yes
         </button>

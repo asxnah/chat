@@ -30,10 +30,10 @@ export const User = ({ type, name, avatar, email, onClick }: UserProps) => {
           <div className="flex justify-between items-center gap-4">
             <h4 className="font-normal">{name}</h4>
           </div>
-          <p className="text-(--darkgrey)">{email}</p>
+          <p className="text-darkgrey">{email}</p>
         </div>
       </div>
-      <ChevronRight className="width-2.5 height-4" color="var(--lightgrey)" />
+      <ChevronRight className="width-2.5 height-4 stroke-lightgrey" />
     </div>
   );
 };

@@ -7,7 +7,7 @@ export const TabBar = () => {
   if (pathname === "/auth") return null;
 
   return (
-    <aside className="h-full flex flex-col justify-between bg-(--black)">
+    <aside className="h-full flex flex-col justify-between bg-black">
       <nav>
         <ul className="list-none">
           <li
@@ -19,8 +19,8 @@ export const TabBar = () => {
               href="/chats"
               className="w-full flex items-center flex-col gap-1"
             >
-              <MessagesSquare className="stroke-(--white) h-5" />
-              <span className="text-(--white) text-sm">Chats</span>
+              <MessagesSquare className="stroke-white h-5" />
+              <span className="text-white text-sm">Chats</span>
             </Link>
           </li>
           <li
@@ -32,8 +32,8 @@ export const TabBar = () => {
               href="/contacts"
               className="w-full flex items-center flex-col gap-1"
             >
-              <Users className="stroke-(--white) h-5" />
-              <span className="text-(--white) text-sm">Contacts</span>
+              <Users className="stroke-white h-5" />
+              <span className="text-white text-sm">Contacts</span>
             </Link>
           </li>
         </ul>
@@ -47,8 +47,8 @@ export const TabBar = () => {
           href="/settings"
           className="w-full flex items-center flex-col gap-1"
         >
-          <Settings className="stroke-(--white) h-5" />
-          <span className="text-(--white) text-sm">Settings</span>
+          <Settings className="stroke-white h-5" />
+          <span className="text-white text-sm">Settings</span>
         </Link>
       </div>
     </aside>

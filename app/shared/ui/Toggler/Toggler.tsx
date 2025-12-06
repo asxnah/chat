@@ -18,19 +18,20 @@ export const Toggler = ({ content, checked, onToggle }: TogglerProps) => {
           xmlns="http://www.w3.org/2000/svg"
         >
           <rect
-            className="pointer-events-none fill-(--stroke)"
+            className="pointer-events-none fill-stroke"
             width="32"
             height="16"
             rx="8"
           />
           <circle
             className={`${
-              checked ? "translate-x-4" : "translate-x-0"
+              checked
+                ? "translate-x-4 fill-black"
+                : "translate-x-0 fill-lightgrey"
             } pointer-events-none duration-200`}
             cx="8"
             cy="8"
             r="8"
-            fill={checked ? "var(--black)" : "var(--lightgrey)"}
           />
         </svg>
       </button>
