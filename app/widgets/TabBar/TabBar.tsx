@@ -4,7 +4,7 @@ import { MessagesSquare, Settings, Users } from "lucide-react";
 
 export const TabBar = () => {
   const pathname = usePathname();
-  if (pathname === "/auth") return null;
+  if (pathname.includes("sign-up") || pathname.includes("sign-in")) return null;
 
   return (
     <aside className="h-full flex flex-col justify-between bg-black">
