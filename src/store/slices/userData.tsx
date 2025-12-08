@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface UserInfoState {
+interface UserInfoState {
   data: Omit<UserInfo, "password">;
 }
 

@@ -1,10 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MessagesSquare, Settings, Users } from "lucide-react";
 
 export const TabBar = () => {
   const pathname = usePathname();
-  if (pathname.includes("sign-up") || pathname.includes("sign-in")) return null;
+  if (
+    pathname.includes("/signup") ||
+    pathname.includes("/login") ||
+    pathname.includes("/email-confirmation")
+  )
+    return null;
 
   return (
     <aside className="h-full flex flex-col justify-between bg-black">
