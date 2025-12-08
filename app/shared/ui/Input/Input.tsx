@@ -21,6 +21,7 @@ export const Input = ({
   type = "text",
   minLength = 1,
   maxLength = 255,
+  autoComplete = "off",
 }: InputProps) => {
   return (
     <input
@@ -33,6 +34,7 @@ export const Input = ({
       className="px-8 py-3 border-1 border-fill rounded-2xl bg-fill caret-darkgrey text-black text-base transition-colors duration-200 focus-visible:outline-none focus-visible:border-lightgrey placeholder:text-darkgrey placeholder:text-base"
       minLength={minLength}
       maxLength={maxLength}
+      autoComplete={autoComplete}
       required
     />
   );
