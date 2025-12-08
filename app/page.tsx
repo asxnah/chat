@@ -6,8 +6,8 @@ import { Button } from "@ui/Button";
 import { Confirm } from "@ui/Confirm";
 import { Input } from "@ui/Input";
 import { Toggler } from "@ui/Toggler";
-import { Form } from "@/shared/ui/Form";
-import { Popup } from "@/shared/ui/Popup";
+import { Form } from "@ui/Form";
+import { Popup } from "@ui/Popup";
 import { TabBar } from "@widgets/TabBar";
 import { User } from "@widgets/User";
 
