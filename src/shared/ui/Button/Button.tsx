@@ -16,7 +16,7 @@ export const Button = ({
   return (
     <button
       type={type}
-      className="w-full px-8 py-3 rounded-2xl bg-black text-white text-base font-bold text-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+      className="w-full px-4 py-3 rounded-2xl bg-black text-white text-base font-bold text-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
       disabled={disabled}
       onClick={onClick}
     >
