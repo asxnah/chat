@@ -1,17 +1,34 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
+
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/rootReducer";
+import { update } from "@/store/slices/userData";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
 
 const SignupPage = () => {
-  const [formData, setFormData] = useState<formData>({
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state: RootState) => state.userInfo);
+
+  const [formData, setFormData] = useState<UserInfo>({
     name: "",
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    setFormData(userInfo.data);
+  }, []);
+
+  const handleFormChange = (key: keyof UserInfo, value: string) => {
+    setFormData({ ...formData, [key]: value });
+
+    if (key !== "password") dispatch(update({ key, value }));
+  };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,7 +44,7 @@ const SignupPage = () => {
             id="Name"
             placeholder="Name"
             value={formData.name}
-            onChange={(value) => setFormData({ ...formData, name: value })}
+            onChange={(value) => handleFormChange("name", value)}
           />
           <Input
             id="Email"
@@ -35,10 +52,7 @@ const SignupPage = () => {
             type="email"
             autoComplete="email"
             value={formData.email}
-            onChange={(value) => {
-              setFormData({ ...formData, email: value });
-              localStorage.setItem("email", value);
-            }}
+            onChange={(value) => handleFormChange("email", value)}
           />
           <Input
             id="Password"
@@ -46,7 +60,7 @@ const SignupPage = () => {
             type="new-password"
             autoComplete="new-password"
             value={formData.password}
-            onChange={(value) => setFormData({ ...formData, password: value })}
+            onChange={(value) => handleFormChange("password", value)}
           />
         </div>
         <Button

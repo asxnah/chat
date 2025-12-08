@@ -1,17 +1,36 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
+
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/rootReducer";
+import { update } from "@/store/slices/userData";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
 
 const LoginPage = () => {
-  const [formData, setFormData] = useState<formData>({
-    name: "",
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state: RootState) => state.userInfo);
+
+  const [formData, setFormData] = useState<Omit<UserInfo, "name">>({
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      email: userInfo.data.email,
+    });
+  }, []);
+
+  const handleFormChange = (key: keyof UserInfo, value: string) => {
+    setFormData({ ...formData, [key]: value });
+
+    if (key === "email") dispatch(update({ key, value }));
+  };
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,7 +48,7 @@ const LoginPage = () => {
             type="email"
             autoComplete="email"
             value={formData.email}
-            onChange={(value) => setFormData({ ...formData, email: value })}
+            onChange={(value) => handleFormChange("email", value)}
           />
           <Input
             id="Password"
@@ -37,7 +56,7 @@ const LoginPage = () => {
             type="current-password"
             autoComplete="current-password"
             value={formData.password}
-            onChange={(value) => setFormData({ ...formData, password: value })}
+            onChange={(value) => handleFormChange("password", value)}
           />
         </div>
         <Button
