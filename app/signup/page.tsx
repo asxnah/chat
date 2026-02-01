@@ -12,24 +12,42 @@ import { Button } from "@ui/Button";
 
 const SignupPage = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state: RootState) => state.userInfo);
 
+  // Получаем из Redux уже сохраненные имя/почту (если есть)
+  const { name, email } = useSelector(
+    (state: RootState) => state.userInfo.data,
+  );
+
+  // Локальный state формы. Тип UserInfo должен содержать поля: name, email, password.
   const [formData, setFormData] = useState<UserInfo>({
     name: "",
     email: "",
     password: "",
   });
 
+  // Синхронизируем локальное состояние формы с данными из Redux при их изменении
+  // Это позволяет подставить уже введенные ранее имя/почту в форму.
   useEffect(() => {
-    setFormData(userInfo.data);
-  }, []);
+    setFormData((data) => ({
+      ...data,
+      name,
+      email,
+    }));
+  }, [name, email]);
 
+  // Универсальный обработчик изменения полей формы
+  // key — одно из полей UserInfo, value — новое значение поля.
+  // При изменении name/email также диспатчим обновление в Redux (чтобы сохранять прогресс ввода).
   const handleFormChange = (key: keyof UserInfo, value: string) => {
     setFormData({ ...formData, [key]: value });
 
+    // Не сохраняем пароль в глобальный стор — только локально
     if (key !== "password") dispatch(update({ key, value }));
   };
 
+  // Обработчик отправки формы
+  // Отменяем стандартное поведение (перезагрузку) и выводим данные в консоль.
+  // Здесь обычно выполняли бы валидацию и отправку на сервер.
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(JSON.stringify(formData));
@@ -37,15 +55,20 @@ const SignupPage = () => {
 
   return (
     <main className="flex items-center justify-center">
+      {/* Форма регистрации: контролы управляются через formData */}
       <form className="w-128 flex flex-col gap-8" onSubmit={onSubmit}>
         <h1 className="text-4xl font-semibold text-center">Welcome</h1>
+
         <div className="flex flex-col gap-4">
+          {/* Поле для имени */}
           <Input
             id="Name"
             placeholder="Name"
             value={formData.name}
             onChange={(value) => handleFormChange("name", value)}
           />
+
+          {/* Поле для email: тип email + автозаполнение */}
           <Input
             id="Email"
             placeholder="Email"
@@ -54,6 +77,8 @@ const SignupPage = () => {
             value={formData.email}
             onChange={(value) => handleFormChange("email", value)}
           />
+
+          {/* Поле для пароля: тип new-password для подсказок автозаполнения */}
           <Input
             id="Password"
             placeholder="Password"
@@ -63,6 +88,8 @@ const SignupPage = () => {
             onChange={(value) => handleFormChange("password", value)}
           />
         </div>
+
+        {/* Кнопка отправки: выключена, если какое-либо поле пустое */}
         <Button
           type="submit"
           content="Continue"
@@ -72,6 +99,8 @@ const SignupPage = () => {
             formData.password === ""
           }
         />
+
+        {/* Ссылка на страницу логина */}
         <Link className="text-center underline" href="/login">
           Already have an account?
         </Link>

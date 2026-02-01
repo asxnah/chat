@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ReduxProvider } from "./reduxProvider";
 import { TabBar } from "@widgets/TabBar";
 import "./globals.css";

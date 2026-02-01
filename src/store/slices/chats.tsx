@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Chats {
+  // Список чатов
   chats: Chat[];
 }
 
 const initialState: Chats = {
+  // Инициализация состояния с примерными чатами и сообщениями
   chats: [
     {
       id: "chat-1a8f2e3d-91b7-4a22-bc1a-74d5b6e1e4a9",
@@ -102,9 +104,23 @@ export const chatsSlice = createSlice({
   name: "chats",
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<Chat>) => {},
+    // Редьюсер для установки нового чата или обновления существующего
+    set: (state, action: PayloadAction<Chat>) => {
+      const index = state.chats.findIndex(
+        (chat) => chat.id === action.payload.id,
+      );
+      if (index !== -1) {
+        // Если чат уже есть, обновляем его
+        state.chats[index] = action.payload;
+      } else {
+        // Если чата нет, добавляем новый
+        state.chats.push(action.payload);
+      }
+    },
   },
 });
 
+// Экспортируем action set
 export const { set } = chatsSlice.actions;
+// Экспортируем редьюсер по умолчанию
 export default chatsSlice.reducer;
