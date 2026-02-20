@@ -22,6 +22,7 @@
       "@/*": ["./src/*"],
       "@store/": ["./src/store/*"],
       "@ui/*": ["./src/shared/ui/*"],
+      "@shared-types/*": ["./src/shared/types/*"],
       "@widgets/*": ["./src/widgets/*"]
     }
   },
