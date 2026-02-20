@@ -44,7 +44,7 @@ export const Input = ({
       {/* Скрытая метка для доступности */}
       <label htmlFor={id} className="hidden"></label>
 
-      {/* Управляемый input с Tailwind классами */}
+      {/* Управляемый input */}
       <input
         className={`px-4 py-3 border-1 border-fill rounded-2xl bg-fill caret-darkgrey text-black text-base transition-colors duration-200 focus-visible:outline-none focus-visible:border-lightgrey placeholder:text-darkgrey placeholder:text-base ${className}`}
         id={id}
