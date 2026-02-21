@@ -22,7 +22,7 @@ export const Message = ({
 
   return (
     <div
-      className={`px-4 py-3 rounded-2xl min-w-[20%] max-w-[60%] ${isSent ? "justify-self-end rounded-br-none" : "justify-self-start rounded-bl-none"} ${hasParentBackground ? "bg-white border-none" : isSent ? "bg-white border border-lightgrey" : "bg-fill"}`}
+      className={`px-4 py-3 rounded-2xl min-w-[20%] max-w-[60%] ${isSent ? "justify-self-end rounded-br-none" : "justify-self-start rounded-bl-none"} ${hasParentBackground ? "border-none" : isSent ? "bg-white border border-lightgrey" : "bg-fill"}`}
     >
       <p className="mb-2 5">{text}</p>
       <div className={`flex items-center ${isSent ? "justify-end" : ""}`}>
