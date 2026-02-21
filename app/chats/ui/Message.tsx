@@ -1,36 +1,36 @@
-import { MessageInterface } from "../../../src/shared/types/message";
+import { MessageInterface } from "@shared-types/message";
+import { Check, CheckCheck, Clock } from "lucide-react";
 
 const formatter = new Intl.DateTimeFormat("ru-RU", {
   hour: "2-digit",
   minute: "2-digit",
 });
 
+interface Message extends MessageInterface {
+  hasParentBackground: boolean;
+}
+
 export const Message = ({
   hasParentBackground,
-  isSent,
   text,
   createdAt,
-  quotedMessage,
-}: MessageInterface) => {
+  status,
+}: Message) => {
   const date = new Date(createdAt);
+  const isSent = status !== "idle";
+  const iconClassName = "w-3.5 h-3.5 stroke-darkgrey ml-0.5";
 
   return (
     <div
       className={`px-4 py-3 rounded-2xl min-w-[20%] max-w-[60%] ${isSent ? "justify-self-end rounded-br-none" : "justify-self-start rounded-bl-none"} ${hasParentBackground ? "bg-white border-none" : isSent ? "bg-white border border-lightgrey" : "bg-fill"}`}
     >
-      {quotedMessage && (
-        <div
-          className={`flex items-stretch bg-fill rounded-lg overflow-hidden pr-2.5 mb-2.5 ${hasParentBackground ? "bg-fill" : isSent ? "bg-fill" : "bg-white"}`}
-        >
-          <div className="mr-3 w-[4px] bg-lightgrey"></div>
-          <div className="py-1.5">
-            <p className="text-darkgrey mb-1">{quotedMessage.user}</p>
-            <p className="line-clamp-1">{quotedMessage.message}</p>
-          </div>
-        </div>
-      )}
       <p className="mb-2 5">{text}</p>
-      <time className="text-darkgrey text-sm">{formatter.format(date)}</time>
+      <div className={`flex items-center ${isSent ? "justify-end" : ""}`}>
+        <time className="text-darkgrey text-sm">{formatter.format(date)}</time>
+        {status === "read" && <CheckCheck className={iconClassName} />}
+        {status === "unread" && <Check className={iconClassName} />}
+        {status === "sending" && <Clock className={iconClassName} />}
+      </div>
     </div>
   );
 };

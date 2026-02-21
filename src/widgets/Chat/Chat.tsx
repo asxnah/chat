@@ -14,8 +14,8 @@ export const Chat = ({ name, datetime, msg }: ChatProps) => {
     // Контейнер чата с аватаркой и информацией
     <div className="px-8 py-3 flex gap-2.5">
       {/* Аватар пользователя */}
-      <div className="shrink-0 w-13.5 h-13.5 rounded-full grid place-items-center bg-fill">
-        <p className="text-2xl font-bold text-darkgrey">
+      <div className="shrink-0 w-13.5 h-13.5 rounded-full grid place-items-center bg-lightgrey">
+        <p className="text-2xl font-bold text-white">
           {name[0].toUpperCase()}
         </p>
       </div>
@@ -28,7 +28,7 @@ export const Chat = ({ name, datetime, msg }: ChatProps) => {
           <p className="text-sm text-darkgrey">{formatDateTime(datetime)}</p>
         </div>
 
-        {/* Текст сообщения и счетчик непрочитанных */}
+        {/* Текст сообщения */}
         <p className="line-clamp-1">{msg}</p>
       </div>
     </div>

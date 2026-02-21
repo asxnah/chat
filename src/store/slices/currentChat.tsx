@@ -1,47 +1,37 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MessageInterface } from "@shared-types/message";
 
-const HAS_BG = false;
-
 interface ChatData {
-  data: MessageInterface[];
+  hasParentBackground: boolean;
+  messages: MessageInterface[];
 }
 
 const initialState: ChatData = {
-  data: [
+  hasParentBackground: false,
+  messages: [
     {
-      hasParentBackground: HAS_BG,
-      isSent: false,
-      text: "a kitten is a young cat, typically referring to one under about one year old and before sexual maturity around seven months",
-      createdAt: "2026-02-20T09:15:00+05:00",
+      messageId: '123e4567-e89b-12d3-a456-426614174000',
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      createdAt: "2026-02-21T13:33:16+0000",
+      status: "idle",
     },
     {
-      hasParentBackground: HAS_BG,
-      isSent: true,
-      text: "these juveniles are born altricial—blind, deaf, and fully dependent on their mother for warmth, milk, and protection",
-      createdAt: "2026-02-20T11:30:00+05:00",
-      quotedMessage: {
-        user: "Someone",
-        message:
-          "a kitten is a young cat, typically referring to one under about one year old and before sexual maturity around seven months",
-      },
+      messageId: '550e8400-e29b-41d4-a716-446655440000',
+      text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      createdAt: "2026-02-21T13:33:16+0000",
+      status: "read",
     },
     {
-      hasParentBackground: HAS_BG,
-      isSent: false,
-      text: "kittens are born after a 64-67 day gestation in litters of 2-5 (sometimes up to 10), emerging in an amniotic sac that the mother removes and eats",
-      createdAt: "2026-02-20T14:45:00+05:00",
-      quotedMessage: {
-        user: "You",
-        message:
-          "these juveniles are born altricial—blind, deaf, and fully dependent on their mother for warmth, milk, and protection",
-      },
+      messageId: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
+      text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      createdAt: "2026-02-21T13:33:16+0000",
+      status: "unread",
     },
     {
-      hasParentBackground: HAS_BG,
-      isSent: true,
-      text: "domestic kittens are playful, social creatures that thrive on human interaction and littermate bonding",
-      createdAt: "2026-02-20T16:05:00+05:00",
+      messageId: '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
+      text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      createdAt: "2026-02-21T13:33:16+0000",
+      status: "sending",
     },
   ],
 };

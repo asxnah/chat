@@ -1,13 +1,6 @@
-interface QuotedMessage {
-  user: string;
-  message: string;
-}
-
 export interface MessageInterface {
-  hasParentBackground: boolean;
-  isSent: boolean;
+  messageId: string;
   text: string;
   createdAt: string;
-
-  quotedMessage?: QuotedMessage; // заглушка до доработки backend
+  status: "idle" | "sending" | "unread" | "read";
 }
