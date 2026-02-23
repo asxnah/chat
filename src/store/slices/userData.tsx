@@ -1,11 +1,12 @@
+import { User } from "@/shared/types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface UserInfoState {
+interface UserDataState {
   // Состояние с данными пользователя без пароля
-  data: Omit<UserInfo, "password">;
+  data: Omit<User, "password">;
 }
 
-const initialState: UserInfoState = {
+const initialState: UserDataState = {
   // Инициализация пустыми значениями
   data: {
     name: "",
@@ -13,12 +14,12 @@ const initialState: UserInfoState = {
   },
 };
 
-export const userInfoSlice = createSlice({
-  name: "userInfo",
+export const userDataSlice = createSlice({
+  name: "userData",
   initialState,
   reducers: {
-    // Устанавливает полностью объект UserInfo (кроме пароля)
-    set: (state, action: PayloadAction<UserInfo>) => {
+    // Устанавливает полностью объект User (кроме пароля)
+    set: (state, action: PayloadAction<User>) => {
       state.data = action.payload;
     },
 
@@ -26,7 +27,7 @@ export const userInfoSlice = createSlice({
     update: (
       state,
       action: PayloadAction<{
-        key: keyof Omit<UserInfo, "password">;
+        key: keyof Omit<User, "password">;
         value: string;
       }>,
     ) => {
@@ -37,6 +38,6 @@ export const userInfoSlice = createSlice({
 });
 
 // Экспортируем actions set и update
-export const { set, update } = userInfoSlice.actions;
+export const { set, update } = userDataSlice.actions;
 // Экспортируем редьюсер по умолчанию
-export default userInfoSlice.reducer;
+export default userDataSlice.reducer;

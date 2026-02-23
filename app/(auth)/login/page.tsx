@@ -2,6 +2,7 @@
 
 import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
+import { User } from "@shared-types/user";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/rootReducer";
@@ -14,11 +15,11 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   // Получаем данные пользователя из Redux store
-  const userInfo = useSelector((state: RootState) => state.userInfo);
+  const userData = useSelector((state: RootState) => state.userData);
 
   // Локальное состояние формы: email и password
   // Не включаем name, так как это страница логина
-  const [formData, setFormData] = useState<Omit<UserInfo, "name">>({
+  const [formData, setFormData] = useState<Omit<User, "name">>({
     email: "",
     password: "",
   });
@@ -27,13 +28,13 @@ const LoginPage = () => {
   useEffect(() => {
     setFormData({
       ...formData,
-      email: userInfo.data.email,
+      email: userData.data.email,
     });
   }, []);
 
   // Универсальный обработчик изменения полей формы
   // При изменении email обновляем Redux store, пароль оставляем только локально
-  const handleFormChange = (key: keyof UserInfo, value: string) => {
+  const handleFormChange = (key: keyof User, value: string) => {
     setFormData({ ...formData, [key]: value });
 
     if (key === "email") dispatch(update({ key, value }));

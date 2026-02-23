@@ -9,17 +9,18 @@ import { update } from "@/store/slices/userData";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
+import { User } from "@/shared/types/user";
 
 const SignupPage = () => {
   const dispatch = useDispatch();
 
   // Получаем из Redux уже сохраненные имя/почту (если есть)
   const { name, email } = useSelector(
-    (state: RootState) => state.userInfo.data,
+    (state: RootState) => state.userData.data,
   );
 
-  // Локальный state формы. Тип UserInfo должен содержать поля: name, email, password.
-  const [formData, setFormData] = useState<UserInfo>({
+  // Локальный state формы
+  const [formData, setFormData] = useState<User>({
     name: "",
     email: "",
     password: "",
@@ -36,9 +37,9 @@ const SignupPage = () => {
   }, [name, email]);
 
   // Универсальный обработчик изменения полей формы
-  // key — одно из полей UserInfo, value — новое значение поля.
+  // key — одно из полей User, value — новое значение поля.
   // При изменении name/email также диспатчим обновление в Redux (чтобы сохранять прогресс ввода).
-  const handleFormChange = (key: keyof UserInfo, value: string) => {
+  const handleFormChange = (key: keyof User, value: string) => {
     setFormData({ ...formData, [key]: value });
 
     // Не сохраняем пароль в глобальный стор — только локально

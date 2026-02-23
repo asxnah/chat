@@ -1,32 +1,26 @@
 import { useState, type FormEvent } from "react";
 import { Button } from "@ui/Button";
 import { Input } from "@ui/Input";
-
-interface UserInfo {
-  // Имя пользователя
-  name: string;
-  // Email пользователя
-  email: string;
-}
+import { User } from "@/shared/types/user";
 
 interface FormProps {
   // Текст кнопки формы
   buttonText: string;
-  // Функция, вызываемая при отправке формы, получает объект UserInfo
-  onSubmit: (userInfo: UserInfo) => void;
+  // Функция, вызываемая при отправке формы, получает объект User
+  onSubmit: (userData: Omit<User, "password">) => void;
 }
 
 export const Form = ({ buttonText, onSubmit }: FormProps) => {
   // Состояние формы с полями name и email
-  const [userInfo, setUserInfo] = useState<UserInfo>({
+  const [userData, setUserData] = useState<Omit<User, "password">>({
     name: "",
     email: "",
   });
 
-  // Обработчик отправки формы: предотвращает стандартное поведение и вызывает onSubmit с userInfo
+  // Обработчик отправки формы: предотвращает стандартное поведение и вызывает onSubmit с userData
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(userInfo);
+    onSubmit(userData);
   };
 
   return (
@@ -37,8 +31,8 @@ export const Form = ({ buttonText, onSubmit }: FormProps) => {
           id="name"
           name="name"
           placeholder="Name"
-          value={userInfo.name}
-          onChange={(value) => setUserInfo({ ...userInfo, name: value })}
+          value={userData.name}
+          onChange={(value) => setUserData({ ...userData, name: value })}
         />
 
         {/* Поле для ввода email */}
@@ -47,8 +41,8 @@ export const Form = ({ buttonText, onSubmit }: FormProps) => {
           name="email"
           type="email"
           placeholder="email@example.com"
-          value={userInfo.email}
-          onChange={(value) => setUserInfo({ ...userInfo, email: value })}
+          value={userData.email}
+          onChange={(value) => setUserData({ ...userData, email: value })}
         />
       </div>
 

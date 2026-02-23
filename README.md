@@ -168,7 +168,7 @@ formatDateTime(isoString: string) => string
 
 - State: `{ data: { name: string; email: string } }`
 - Actions:
-  - `set(UserInfo)` – sets user data
+  - `set(User)` – sets user data
   - `update({ key, value })` – updates `name` or `email`
 
 ### chatsSlice
