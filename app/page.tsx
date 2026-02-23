@@ -80,17 +80,15 @@ export default function Home() {
       {/* Список пользователей (account и contact) с обработкой onClick */}
       <div className="w-full border-b border-b-lightgrey py-4">
         <User
-          type="account"
-          name="Example account"
+          isAccount
+          name="Account edit button"
           email="example@email.com"
-          avatar="https://i.pinimg.com/736x/90/2a/c5/902ac5d9530185d81b4f3f91b9fd7c17.jpg"
           onClick={() => console.log("User account")}
         />
         <User
-          type="contact"
-          name="Example contact"
+          isAccount={false}
+          name="Link to a chat w/ a contact"
           email="example@email.com"
-          avatar="https://i.pinimg.com/736x/3e/a8/f1/3ea8f18e9888280073e6627bd6c12969.jpg"
           onClick={() => console.log("User contact")}
         />
       </div>
