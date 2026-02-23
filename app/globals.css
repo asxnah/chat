@@ -37,28 +37,16 @@ main {
 /* Пользовательская тема */
 @theme {
   /* базовые цвета */
-  --color-black: #1f1f1f;
-  --color-darkgrey: #808080;
-  --color-lightgrey: #cccccc;
-  --color-white: #fcfcfc;
+  --color-black: #312f2c;
+  --color-darkgrey: #757575;
+  --color-lightgrey: #d3d3d3;
+  --color-white: #fafafa;
 
-  /* UI элементы */
+  /* базовые UI цвета */
   --color-stroke: #ededed;
   --color-fill: #f2f2f2;
-  --color-screen-dim: rgba(26, 28, 31, 0.15);
+  --color-screen-dim: rgba(49, 47, 44, 0.15);
 
-  /* Дополнительные цвета для UI, статуса, сообщений */
-  --color-red: #d9566c;
-  --color-orange: #e5955c;
-  --color-maize: #e5e55c;
-  --color-pear: #c3e55c;
-  --color-green: #8ae55c;
-  --color-malachite: #5ce567;
-  --color-aquamarine: #5ce5a1;
-  --color-turquoise: #5ce5da;
-  --color-blue-crayola: #5c7ee5;
-  --color-state-blue: #735ce5;
-  --color-amethyst: #ac5ce5;
-  --color-orchid: #e55ce5;
-  --color-brilliant-rose: #e55cac;
+  /* дополнительные UI цвета */
+  --color-red: #f0485f;
 }
