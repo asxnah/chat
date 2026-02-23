@@ -12,7 +12,6 @@ interface MessageProps extends Message {
 
 export const MessageNode = ({
   hasParentBackground,
-  messageId,
   text,
   createdAt,
   status,
