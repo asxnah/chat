@@ -10,14 +10,11 @@ import { Button } from "@ui/Button";
 import { Chat } from "@widgets/Chat";
 import { SendIcon } from "./lib/SendIcon";
 import { Message } from "./ui/Message";
-import { ChatPreview } from "./model";
 
 // TODO:
-// - Подключить получение списка чатов пользователя из Redux
 // - Реализовать фильтр поиска по chats
-// - Отображать список чатов динамически вместо заглушки
-// - Настроить отображение пустого состояния только если chats пуст
 // - Добавить обработку выбора чата и отображение сообщений
+// - Добавить меню чата
 
 const HAS_PARENT_BACKGROUND = false;
 
