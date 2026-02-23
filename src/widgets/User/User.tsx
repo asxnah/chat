@@ -2,19 +2,17 @@ import type { MouseEvent } from "react";
 import { ChevronRight } from "lucide-react";
 
 type UserProps = {
-  // Тип пользователя: контакт или аккаунт
-  type: "contact" | "account";
+  // Тип ссылки: контакт или аккаунт
+  isAccount: boolean;
   // Имя пользователя
   name: string;
-  // URL аватара
-  avatar: string;
   // Email пользователя
   email: string;
   // Обработчик клика по пользователю
-  onClick: (e: MouseEvent) => void;
+  onClick: (e: MouseEvent<HTMLDivElement>) => void;
 };
 
-export const User = ({ type, name, avatar, email, onClick }: UserProps) => {
+export const User = ({ isAccount, name, email, onClick }: UserProps) => {
   return (
     // Контейнер пользователя, кликабельный
     <div
@@ -24,15 +22,15 @@ export const User = ({ type, name, avatar, email, onClick }: UserProps) => {
     >
       <div className="flex items-center gap-4">
         {/* Аватар пользователя */}
-        {avatar && (
-          <img
-            src={avatar}
-            alt="user avatar"
-            className={`${
-              type === "account" ? "w-16 h-16" : "w-13.5 h-13.5"
-            } rounded-full object-cover`}
-          />
-        )}
+        <div
+          className={`shrink-0 rounded-full grid place-items-center bg-lightgrey ${
+            isAccount ? "w-16 h-16" : "w-13.5 h-13.5"
+          }`}
+        >
+          <p className="text-2xl font-bold text-white">
+            {name[0].toUpperCase()}
+          </p>
+        </div>
 
         {/* Блок с именем и email */}
         <div className="flex flex-col flex-1">
