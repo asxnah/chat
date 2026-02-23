@@ -1,4 +1,4 @@
-export interface MessageInterface {
+export interface Message {
   messageId: string;
   text: string;
   createdAt: string;
@@ -12,5 +12,5 @@ export interface ChatPreview {
     name: string;
     isOnline: boolean;
   };
-  message: MessageInterface;
+  message: Message;
 }

@@ -1,4 +1,4 @@
-import { MessageInterface } from "@shared-types/message";
+import { Message } from "@shared-types/message";
 import { Check, CheckCheck, Clock } from "lucide-react";
 
 const formatter = new Intl.DateTimeFormat("ru-RU", {
@@ -6,7 +6,7 @@ const formatter = new Intl.DateTimeFormat("ru-RU", {
   minute: "2-digit",
 });
 
-interface Message extends MessageInterface {
+interface Message extends Message {
   hasParentBackground: boolean;
 }
 
