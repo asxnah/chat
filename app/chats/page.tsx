@@ -9,11 +9,12 @@ import { set } from "@/store/slices/chatsPreview";
 import { AppDispatch } from "@/store";
 
 import { Input } from "@ui/Input";
-import { Chat } from "@widgets/Chat";
+import { Chat } from "./ui/widgets/Chat/Chat";
 
 import { SendIcon } from "./lib/SendIcon";
 import { MessageNode } from "./ui/MessageNode";
 import { EmptyStateNode } from "./ui/EmptyStateNode";
+import { ChatPreviewSkeleton } from "./ui/ChatPreviewSkeleton";
 
 // TODO:
 // - Добавить обработку выбора чата и отображение сообщений
@@ -32,8 +33,10 @@ const ChatsPage = () => {
 
   // Загрузка чатов при монтировании
   useEffect(() => {
+    // Открываем состояние loading
+    setLoading(true);
     // Имитация запроса к backend
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       // Кладем данные из backend в Redux
       dispatch(
         set([
@@ -67,7 +70,11 @@ const ChatsPage = () => {
           },
         ]),
       );
-    }, 500);
+      // Закрываем состояние loading
+      setLoading(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -80,6 +87,8 @@ const ChatsPage = () => {
   const [message, setMessage] = useState<string>("");
   // Текущий чат
   const [currentChatId, setCurrentChatId] = useState<string>("");
+  // Состояние прогрузки чатов
+  const [loading, setLoading] = useState<boolean>(false);
 
   const sortedChats = useMemo<ChatPreview[]>(() => {
     if (!query) return chats;
@@ -102,6 +111,10 @@ const ChatsPage = () => {
             value={query}
             onChange={setQuery}
           />
+          {loading &&
+            [...Array(3)].map((_, index) => (
+              <ChatPreviewSkeleton key={index} />
+            ))}
           {sortedChats.length > 0 ? ( // Список чатов
             <div className="flex flex-col grow">
               {sortedChats.map((chat) => (
