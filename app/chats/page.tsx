@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { ChatPreview } from "@shared-types/chatPreview";
+import { ChatPreview } from "@/shared/types/chat";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/rootReducer";
@@ -9,11 +9,10 @@ import { set } from "@/store/slices/chatsPreview";
 import { AppDispatch } from "@/store";
 
 import { Input } from "@ui/Input";
-import { Button } from "@ui/Button";
 import { Chat } from "@widgets/Chat";
 
 import { SendIcon } from "./lib/SendIcon";
-import { Message } from "./ui/Message";
+import { MessageNode } from "./ui/MessageNode";
 import { EmptyStateNode } from "./ui/EmptyStateNode";
 
 // TODO:
@@ -127,7 +126,7 @@ const ChatsPage = () => {
           // Сообщения
           <div className="mt-auto p-8 grid gap-2 overflow-y-scroll">
             {messages.map((message) => (
-              <Message
+              <MessageNode
                 key={message.messageId}
                 messageId={message.messageId}
                 hasParentBackground={HAS_PARENT_BACKGROUND}

@@ -2,7 +2,7 @@
 
 import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
-import { User } from "@shared-types/user";
+import { User } from "@/shared/types/user";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/rootReducer";

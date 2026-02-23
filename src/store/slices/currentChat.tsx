@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Message } from "@shared-types/message";
+import { Message } from "@/shared/types/chat";
 
 interface ChatData {
   hasParentBackground: boolean;

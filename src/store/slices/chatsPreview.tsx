@@ -1,4 +1,4 @@
-import { ChatPreview } from "@shared-types/chatPreview";
+import { ChatPreview } from "@/shared/types/chat";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ChatsData {

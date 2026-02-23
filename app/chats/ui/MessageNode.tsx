@@ -1,4 +1,4 @@
-import { Message } from "@shared-types/message";
+import { Message } from "@/shared/types/chat";
 import { Check, CheckCheck, Clock } from "lucide-react";
 
 const formatter = new Intl.DateTimeFormat("ru-RU", {
@@ -6,16 +6,17 @@ const formatter = new Intl.DateTimeFormat("ru-RU", {
   minute: "2-digit",
 });
 
-interface Message extends Message {
+interface MessageProps extends Message {
   hasParentBackground: boolean;
 }
 
-export const Message = ({
+export const MessageNode = ({
   hasParentBackground,
+  messageId,
   text,
   createdAt,
   status,
-}: Message) => {
+}: MessageProps) => {
   const date = new Date(createdAt);
   const isSent = status !== "idle";
   const iconClassName = "w-3.5 h-3.5 stroke-darkgrey ml-0.5";
