@@ -15,7 +15,7 @@ export const Chat = ({ name, datetime, message, isSelected }: ChatProps) => {
   return (
     // Контейнер чата с аватаркой и информацией
     <div
-      className={`px-8 py-3 flex gap-2.5 ${isSelected ? "bg-fill" : "bg-white"}`}
+      className={`px-8 py-3 flex items-center gap-2.5 ${isSelected ? "bg-fill" : "bg-white"}`}
     >
       {/* Аватар пользователя */}
       <div className="shrink-0 w-13.5 h-13.5 rounded-full grid place-items-center bg-lightgrey">

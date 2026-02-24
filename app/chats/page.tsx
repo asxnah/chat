@@ -72,7 +72,7 @@ const ChatsPage = () => {
       );
       // Закрываем состояние loading
       setLoading(false);
-    }, 5000);
+    }, 300);
 
     return () => clearTimeout(timer);
   }, []);
@@ -111,10 +111,12 @@ const ChatsPage = () => {
             value={query}
             onChange={setQuery}
           />
+
           {loading &&
             [...Array(3)].map((_, index) => (
               <ChatPreviewSkeleton key={index} />
             ))}
+
           {sortedChats.length > 0 ? ( // Список чатов
             <div className="flex flex-col grow">
               {sortedChats.map((chat) => (
