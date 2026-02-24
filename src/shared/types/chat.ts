@@ -12,5 +12,5 @@ export interface ChatPreview {
     name: string;
     isOnline: boolean;
   };
-  message: Message;
+  messages: Message[];
 }

@@ -1,15 +1,3 @@
-export const formatTime = (isoString: string) => {
-  // Преобразуем ISO строку в объект Date
-  const date = new Date(isoString);
-
-  // Получаем часы и минуты, добавляя ведущий ноль при необходимости
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-
-  // Возвращаем строку в формате HH:MM
-  return `${hours}:${minutes}`;
-};
-
 export const formatDateTime = (isoString: string) => {
   const date = new Date(isoString);
   const now = new Date();
@@ -74,3 +62,8 @@ export const formatDateTime = (isoString: string) => {
   // Для прошлой недели и ранее
   return formatFullDate(date);
 };
+
+export const timeFormatter = new Intl.DateTimeFormat("ru-RU", {
+  hour: "2-digit",
+  minute: "2-digit",
+});

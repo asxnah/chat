@@ -1,11 +1,6 @@
 import { Message } from "@/shared/types/chat";
 import { Check, CheckCheck, Clock } from "lucide-react";
 
-const formatter = new Intl.DateTimeFormat("ru-RU", {
-  hour: "2-digit",
-  minute: "2-digit",
-});
-
 interface MessageProps extends Message {
   hasParentBackground: boolean;
 }
@@ -16,7 +11,6 @@ export const MessageNode = ({
   createdAt,
   status,
 }: MessageProps) => {
-  const date = new Date(createdAt);
   const isSent = status !== "idle";
   const iconClassName = "w-3.5 h-3.5 stroke-darkgrey ml-0.5";
 
@@ -26,7 +20,7 @@ export const MessageNode = ({
     >
       <p className="mb-2 5">{text}</p>
       <div className={`flex items-center ${isSent ? "justify-end" : ""}`}>
-        <time className="text-darkgrey text-sm">{formatter.format(date)}</time>
+        <time className="text-darkgrey text-sm">{createdAt}</time>
         {status === "read" && <CheckCheck className={iconClassName} />}
         {status === "unread" && <Check className={iconClassName} />}
         {status === "sending" && <Clock className={iconClassName} />}

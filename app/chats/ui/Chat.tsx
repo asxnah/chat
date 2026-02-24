@@ -1,7 +1,7 @@
-import { formatDateTime } from "./utils/formatDateTime";
-
 interface ChatProps {
-  // Имя пользователя или чата
+  // ID чата
+  id: string;
+  // Имя пользователя
   name: string;
   // Дата и время последнего сообщения в ISO формате
   datetime: string;
@@ -9,13 +9,31 @@ interface ChatProps {
   message: string;
   // Состояние выбранного чата
   isSelected: boolean;
+  // Обработчик для выбора чата
+  onSelect: (id: string) => void;
 }
 
-export const Chat = ({ name, datetime, message, isSelected }: ChatProps) => {
+export const Chat = ({
+  id,
+  name,
+  datetime,
+  message,
+  isSelected,
+  onSelect,
+}: ChatProps) => {
   return (
     // Контейнер чата с аватаркой и информацией
     <div
       className={`px-8 py-3 flex items-center gap-2.5 ${isSelected ? "bg-fill" : "bg-white"}`}
+      role="button"
+      tabIndex={0}
+      onClick={() => onSelect(id)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onSelect(id);
+        }
+      }}
     >
       {/* Аватар пользователя */}
       <div className="shrink-0 w-13.5 h-13.5 rounded-full grid place-items-center bg-lightgrey">
@@ -27,7 +45,7 @@ export const Chat = ({ name, datetime, message, isSelected }: ChatProps) => {
         {/* Верхняя строка: имя и время */}
         <div className="flex items-center justify-between">
           <h6 className="font-bold">{name}</h6>
-          <p className="text-sm text-darkgrey">{formatDateTime(datetime)}</p>
+          <p className="text-sm text-darkgrey">{datetime}</p>
         </div>
 
         {/* Текст сообщения */}

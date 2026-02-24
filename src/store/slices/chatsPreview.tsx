@@ -1,5 +1,6 @@
 import { ChatPreview } from "@/shared/types/chat";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getLastMessageTime } from "../utils/getLastMessageTime";
 
 interface ChatsData {
   chats: ChatPreview[];
@@ -13,25 +14,22 @@ export const chatsPreviewSlice = createSlice({
   name: "chatsPreview",
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<ChatPreview[]>) => {
+    setChatsPreview: (
+      state: ChatsData,
+      action: PayloadAction<ChatPreview[]>,
+    ) => {
       state.chats = action.payload.sort(
-        (a, b) =>
-          new Date(b.message.createdAt).getTime() -
-          new Date(a.message.createdAt).getTime(),
+        (a, b) => getLastMessageTime(b) - getLastMessageTime(a),
       );
     },
-    add: (state, action: PayloadAction<ChatPreview>) => {
+    addChatPreview: (state: ChatsData, action: PayloadAction<ChatPreview>) => {
       state.chats.push(action.payload);
-      state.chats.sort(
-        (a, b) =>
-          new Date(b.message.createdAt).getTime() -
-          new Date(a.message.createdAt).getTime(),
-      );
+      state.chats.sort((a, b) => getLastMessageTime(b) - getLastMessageTime(a));
     },
   },
 });
 
 // Экспортируем action
-export const { set, add } = chatsPreviewSlice.actions;
+export const { setChatsPreview, addChatPreview } = chatsPreviewSlice.actions;
 // Экспортируем редьюсер по умолчанию
 export default chatsPreviewSlice.reducer;
