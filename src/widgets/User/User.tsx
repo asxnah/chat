@@ -8,8 +8,8 @@ type UserProps = {
   name: string;
   // Email пользователя
   email: string;
-  // Обработчик клика по пользователю
-  onClick: (e: MouseEvent<HTMLDivElement>) => void;
+  // Обработчик
+  onClick: () => void;
 };
 
 export const User = ({ isAccount, name, email, onClick }: UserProps) => {
@@ -17,8 +17,15 @@ export const User = ({ isAccount, name, email, onClick }: UserProps) => {
     // Контейнер пользователя, кликабельный
     <div
       className="flex items-center justify-between p-3 cursor-pointer"
+      role="button"
+      tabIndex={0}
       onClick={onClick}
-      tabIndex={0} // Чтобы элемент был фокусируемым
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
     >
       <div className="flex items-center gap-4">
         {/* Аватар пользователя */}
