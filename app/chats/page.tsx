@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Chat as ChatType, Message } from "@/shared/types/chat";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -10,15 +10,11 @@ import { setChatsPreview } from "@/store/slices/chatsPreview";
 import { addMessage, setMessages } from "@/store/slices/currentChat";
 
 import { v4 } from "uuid";
-import { formatDateTime, timeFormatter } from "./utils/formatter";
 
 import { Input } from "@ui/Input";
-import { Chat } from "./ui/Chat";
-
-import { Send } from "@icons";
-import { ChatMessage } from "./ui/ChatMessage";
-import { ChatsEmptyState } from "./ui/ChatsEmptyState";
 import { ChatSkeleton } from "./ui/ChatSkeleton";
+import { ChatsList } from "./ui/ChatsList";
+import { ChatPanel } from "./ui/ChatPanel";
 
 // TODO:
 // - Добавить меню чата
@@ -100,20 +96,18 @@ const ChatsPage = () => {
   // Текущий чат
   const [currentChatId, setCurrentChatId] = useState<string>("");
   // Состояние прогрузки чатов
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const messagesContainerRef = useRef<HTMLDivElement | null>(null);
+  const [chatsLoading, setChatsLoading] = useState<boolean>(false);
 
   // Загрузка превью чатов при монтировании
   useEffect(() => {
-    // Открываем состояние loading
-    setLoading(true);
+    // Открываем состояние chatsLoading
+    setChatsLoading(true);
     // Имитация запроса к backend
     const timer = setTimeout(() => {
       // Кладем данные из backend в Redux
       dispatch(setChatsPreview(CHATS_PREVIEW));
-      // Закрываем состояние loading
-      setLoading(false);
+      // Закрываем состояние chatsLoading
+      setChatsLoading(false);
     }, 300);
 
     return () => clearTimeout(timer);
@@ -126,13 +120,6 @@ const ChatsPage = () => {
   useEffect(() => {
     dispatch(setMessages(MESSAGES));
   }, [currentChatId]);
-
-  useEffect(() => {
-    const container = messagesContainerRef.current;
-    if (!container) return;
-
-    container.scrollTop = container.scrollHeight;
-  }, [messages]);
 
   const sortedChats = useMemo<ChatType[]>(() => {
     if (!query) return chats;
@@ -163,18 +150,12 @@ const ChatsPage = () => {
     setMessage("");
   };
 
-  const handleSendOnEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      sendMessage();
-    }
-  };
-
   return (
     <main className="flex">
       {/* Левая панель с поиском и списком чатов */}
       <div className="w-120 border-r border-r-stroke">
         <div className="h-full flex flex-col">
-          {/* Поле поиска */}
+          {/* Поле поиска по чатам */}
           <Input
             classExtension="mx-8 my-3"
             id="search"
@@ -183,69 +164,27 @@ const ChatsPage = () => {
             onValueChange={setQuery}
           />
 
-          {loading &&
+          {chatsLoading &&
             [...Array(3)].map((_, index) => <ChatSkeleton key={index} />)}
 
-          {sortedChats.length > 0 ? ( // Список чатов
-            <div className="flex flex-col grow">
-              {sortedChats.map((chat) => (
-                <Chat
-                  key={chat.chatId}
-                  id={chat.chatId}
-                  name={chat.user.name}
-                  datetime={formatDateTime(chat.messages[0].createdAt)}
-                  message={chat.messages[0].text}
-                  isSelected={currentChatId === chat.chatId}
-                  onSelect={selectChat}
-                />
-              ))}
-            </div>
-          ) : (
-            <ChatsEmptyState query={query} length={chats.length} />
-          )}
+          {/* Список чатов */}
+          <ChatsList
+            query={query}
+            chatsListEmpty={chats.length === 0}
+            sortedChats={sortedChats}
+            selectedId={currentChatId}
+            onSelect={selectChat}
+          />
         </div>
       </div>
 
       {/* Правая панель с областью сообщений */}
-      <div className="grow flex flex-col h-screen">
-        {messages.length > 0 ? (
-          // Сообщения
-          <div
-            className="mt-auto p-8 grid gap-2 overflow-y-scroll"
-            ref={messagesContainerRef}
-          >
-            {messages.map((message) => (
-              <ChatMessage
-                key={message.messageId}
-                messageId={message.messageId}
-                text={message.text}
-                status={message.status}
-                createdAt={timeFormatter.format(new Date(message.createdAt))}
-              />
-            ))}
-          </div>
-        ) : (
-          // Пустое состояние списка сообщений
-          <p className="text-center text-darkgrey mt-auto mb-8">
-            Select a chat or a contact to start messaging
-          </p>
-        )}
-
-        {/* Поле ввода и отправки сообщения */}
-        <div className="px-4 py-3 bg-white border-t border-t-stroke flex gap-4 items-center h-fit w-full">
-          <Input
-            className="flex-auto"
-            id="message"
-            placeholder="Message"
-            value={message}
-            onValueChange={setMessage}
-            onKeyDown={handleSendOnEnter}
-          />
-          <button onClick={sendMessage} disabled={message.trim().length === 0}>
-            {Send}
-          </button>
-        </div>
-      </div>
+      <ChatPanel
+        message={message}
+        onMessageChange={setMessage}
+        onMessageSend={sendMessage}
+        messages={messages}
+      />
     </main>
   );
 };
