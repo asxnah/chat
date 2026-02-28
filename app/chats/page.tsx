@@ -15,7 +15,7 @@ import { formatDateTime, timeFormatter } from "./utils/formatter";
 import { Input } from "@ui/Input";
 import { Chat } from "./ui/Chat";
 
-import { SendIcon } from "./lib/SendIcon";
+import { Send } from "@icons";
 import { ChatMessage } from "./ui/ChatMessage";
 import { ChatsEmptyState } from "./ui/ChatsEmptyState";
 import { ChatSkeleton } from "./ui/ChatSkeleton";
@@ -242,7 +242,7 @@ const ChatsPage = () => {
             onKeyDown={handleSendOnEnter}
           />
           <button onClick={sendMessage} disabled={message.trim().length === 0}>
-            {SendIcon}
+            {Send}
           </button>
         </div>
       </div>

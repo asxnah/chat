@@ -1,4 +1,4 @@
-export const SendIcon = (
+const Send = (
   <svg
     className="grow-0 shrink-0 cursor-pointer"
     width="40"
@@ -14,3 +14,5 @@ export const SendIcon = (
     />
   </svg>
 );
+
+export default Send;
