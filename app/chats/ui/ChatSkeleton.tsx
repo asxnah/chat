@@ -1,5 +1,4 @@
 export const ChatSkeleton = () => {
-  // Скелет превью чата
   return (
     <div className="px-8 py-3 flex items-center gap-2.5 bg-white">
       {/* Аватар */}

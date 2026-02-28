@@ -1,5 +1,16 @@
 "use client";
 
+/**
+ * ChatsPage
+ *
+ * Main page component that:
+ * - Loads chat previews into Redux
+ * - Handles chat selection
+ * - Manages current chat messages
+ * - Provides search functionality
+ * - Handles sending new messages
+ */
+
 import { useEffect, useMemo, useState } from "react";
 import { Chat as ChatType, Message } from "@/shared/types/chat";
 
@@ -17,8 +28,11 @@ import { ChatsList } from "./ui/ChatsList";
 import { ChatPanel } from "./ui/ChatPanel";
 
 // TODO:
-// - Добавить меню чата
+// - Add chat menu (e.g., actions like delete, mute, etc.)
 
+/**
+ * Mocked chat preview data (simulates backend response)
+ */
 const CHATS_PREVIEW: ChatType[] = [
   {
     chatId: "59d25a54-904d-4fb5-b1a4-6d42c3f03671",
@@ -53,6 +67,10 @@ const CHATS_PREVIEW: ChatType[] = [
     ],
   },
 ];
+
+/**
+ * Mocked messages for currently opened chat
+ */
 const MESSAGES: Message[] = [
   {
     messageId: "123e4567-e89b-12d3-a456-426614174000",
@@ -82,45 +100,75 @@ const MESSAGES: Message[] = [
 
 const ChatsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  // Список чатов из Redux
+
+  /**
+   * Messages of the currently selected chat (Redux state)
+   */
   const messages = useSelector(
     (state: RootState) => state.currentChat.messages,
   );
-  // Превью чатов из Redux
+
+  /**
+   * Chat previews list (Redux state)
+   */
   const chats = useSelector((state: RootState) => state.chatsPreview.chats);
 
-  // Состояние поля поиска
+  /**
+   * Local state: search query
+   */
   const [query, setQuery] = useState<string>("");
-  // Состояние сообщения
+
+  /**
+   * Local state: message input value
+   */
   const [message, setMessage] = useState<string>("");
-  // Текущий чат
+
+  /**
+   * Local state: currently selected chat ID
+   */
   const [currentChatId, setCurrentChatId] = useState<string>("");
-  // Состояние прогрузки чатов
+
+  /**
+   * Local state: indicates chat previews loading
+   */
   const [chatsLoading, setChatsLoading] = useState<boolean>(false);
 
-  // Загрузка превью чатов при монтировании
+  /**
+   * On mount:
+   * - Simulates API request
+   * - Stores chat previews in Redux
+   */
   useEffect(() => {
-    // Открываем состояние chatsLoading
     setChatsLoading(true);
-    // Имитация запроса к backend
+
     const timer = setTimeout(() => {
-      // Кладем данные из backend в Redux
       dispatch(setChatsPreview(CHATS_PREVIEW));
-      // Закрываем состояние chatsLoading
       setChatsLoading(false);
     }, 300);
 
     return () => clearTimeout(timer);
   }, []);
 
+  /**
+   * Automatically select first chat when chats list is loaded
+   */
   useEffect(() => {
-    chats.length > 0 && setCurrentChatId(chats[0].chatId);
+    if (chats.length > 0) {
+      setCurrentChatId(chats[0].chatId);
+    }
   }, [chats]);
 
+  /**
+   * Load messages when current chat changes
+   * (Currently mocked with static data)
+   */
   useEffect(() => {
     dispatch(setMessages(MESSAGES));
   }, [currentChatId]);
 
+  /**
+   * Memoized filtered chats based on search query
+   */
   const sortedChats = useMemo<ChatType[]>(() => {
     if (!query) return chats;
 
@@ -129,11 +177,21 @@ const ChatsPage = () => {
     );
   }, [chats, query]);
 
+  /**
+   * Handles chat selection
+   */
   const selectChat = (id: string) => {
     setCurrentChatId(id);
-    setMessage("");
+    setMessage(""); // Clear input when switching chats
   };
 
+  /**
+   * Sends a new message:
+   * - Trims input
+   * - Generates unique ID
+   * - Dispatches Redux action
+   * - Clears input
+   */
   const sendMessage = () => {
     const trimmed = message.trim();
     if (!trimmed) return;
@@ -152,10 +210,10 @@ const ChatsPage = () => {
 
   return (
     <main className="flex">
-      {/* Левая панель с поиском и списком чатов */}
+      {/* Left panel: search + chats list */}
       <div className="w-120 border-r border-r-stroke">
         <div className="h-full flex flex-col">
-          {/* Поле поиска по чатам */}
+          {/* Search input */}
           <Input
             classExtension="mx-8 my-3"
             id="search"
@@ -164,10 +222,11 @@ const ChatsPage = () => {
             onValueChange={setQuery}
           />
 
+          {/* Loading skeletons */}
           {chatsLoading &&
             [...Array(3)].map((_, index) => <ChatSkeleton key={index} />)}
 
-          {/* Список чатов */}
+          {/* Chats list */}
           <ChatsList
             query={query}
             chatsListEmpty={chats.length === 0}
@@ -178,7 +237,7 @@ const ChatsPage = () => {
         </div>
       </div>
 
-      {/* Правая панель с областью сообщений */}
+      {/* Right panel: current chat messages */}
       <ChatPanel
         message={message}
         onMessageChange={setMessage}
