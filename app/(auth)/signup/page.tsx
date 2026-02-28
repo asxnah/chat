@@ -66,7 +66,7 @@ const SignupPage = () => {
             id="Name"
             placeholder="Name"
             value={formData.name}
-            onChange={(value) => handleFormChange("name", value)}
+            onValueChange={(value) => handleFormChange("name", value)}
           />
 
           {/* Поле для email: тип email + автозаполнение */}
@@ -76,7 +76,7 @@ const SignupPage = () => {
             type="email"
             autoComplete="email"
             value={formData.email}
-            onChange={(value) => handleFormChange("email", value)}
+            onValueChange={(value) => handleFormChange("email", value)}
           />
 
           {/* Поле для пароля: тип new-password для подсказок автозаполнения */}
@@ -86,7 +86,7 @@ const SignupPage = () => {
             type="new-password"
             autoComplete="new-password"
             value={formData.password}
-            onChange={(value) => handleFormChange("password", value)}
+            onValueChange={(value) => handleFormChange("password", value)}
           />
         </div>
 

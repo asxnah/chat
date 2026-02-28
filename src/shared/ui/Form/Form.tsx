@@ -32,7 +32,7 @@ export const Form = ({ buttonText, onSubmit }: FormProps) => {
           name="name"
           placeholder="Name"
           value={userData.name}
-          onChange={(value) => setUserData({ ...userData, name: value })}
+          onValueChange={(value) => setUserData({ ...userData, name: value })}
         />
 
         {/* Поле для ввода email */}
@@ -42,7 +42,7 @@ export const Form = ({ buttonText, onSubmit }: FormProps) => {
           type="email"
           placeholder="email@example.com"
           value={userData.email}
-          onChange={(value) => setUserData({ ...userData, email: value })}
+          onValueChange={(value) => setUserData({ ...userData, email: value })}
         />
       </div>
 

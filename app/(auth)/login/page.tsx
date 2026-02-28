@@ -62,7 +62,7 @@ const LoginPage = () => {
             type="email"
             autoComplete="email"
             value={formData.email}
-            onChange={(value) => handleFormChange("email", value)}
+            onValueChange={(value) => handleFormChange("email", value)}
           />
 
           {/* Поле пароля */}
@@ -72,7 +72,7 @@ const LoginPage = () => {
             type="current-password"
             autoComplete="current-password"
             value={formData.password}
-            onChange={(value) => handleFormChange("password", value)}
+            onValueChange={(value) => handleFormChange("password", value)}
           />
         </div>
 

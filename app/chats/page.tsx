@@ -176,11 +176,11 @@ const ChatsPage = () => {
         <div className="h-full flex flex-col">
           {/* Поле поиска */}
           <Input
-            className="mx-8 my-3"
+            classExtension="mx-8 my-3"
             id="search"
             placeholder="Search"
             value={query}
-            onChange={setQuery}
+            onValueChange={setQuery}
           />
 
           {loading &&
@@ -238,7 +238,7 @@ const ChatsPage = () => {
             id="message"
             placeholder="Message"
             value={message}
-            onChange={setMessage}
+            onValueChange={setMessage}
             onKeyDown={handleSendOnEnter}
           />
           <button onClick={sendMessage} disabled={message.trim().length === 0}>

@@ -92,13 +92,13 @@ const emailConfirmation = () => {
           {code.map((c, index) => (
             <Input
               key={index}
-              className="w-11.5 h-11.5 text-center"
+              classExtension="w-11.5 h-11.5 text-center"
               id={`code-${index}`}
               placeholder="_"
               autoComplete="email"
               maxLength={1}
               value={c}
-              onChange={(value) => handleChange(value, index)}
+              onValueChange={(value) => handleChange(value, index)}
               onKeyDown={(e) => handleBackspace(e, index)}
             />
           ))}
