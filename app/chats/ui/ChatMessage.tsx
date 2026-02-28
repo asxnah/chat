@@ -1,7 +1,7 @@
 import { Message } from "@/shared/types/chat";
 import { Check, CheckCheck, Clock } from "lucide-react";
 
-export const MessageNode = ({ text, createdAt, status }: Message) => {
+export const ChatMessage = ({ text, createdAt, status }: Message) => {
   const isSent = status !== "idle";
   const iconClassName = "w-3.5 h-3.5 stroke-darkgrey ml-0.5";
 

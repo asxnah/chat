@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { MouseEvent, KeyboardEvent } from "react";
-import { ChatPreview, Message } from "@/shared/types/chat";
+import { Chat as ChatType, Message } from "@/shared/types/chat";
 
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/store";
@@ -10,21 +9,21 @@ import { RootState } from "@/store/rootReducer";
 import { setChatsPreview } from "@/store/slices/chatsPreview";
 import { addMessage, setMessages } from "@/store/slices/currentChat";
 
+import { v4 } from "uuid";
 import { formatDateTime, timeFormatter } from "./utils/formatter";
 
 import { Input } from "@ui/Input";
 import { Chat } from "./ui/Chat";
 
 import { SendIcon } from "./lib/SendIcon";
-import { MessageNode } from "./ui/MessageNode";
-import { EmptyStateNode } from "./ui/EmptyStateNode";
-import { ChatPreviewSkeleton } from "./ui/ChatPreviewSkeleton";
-import { v4 } from "uuid";
+import { ChatMessage } from "./ui/ChatMessage";
+import { ChatsEmptyState } from "./ui/ChatsEmptyState";
+import { ChatSkeleton } from "./ui/ChatSkeleton";
 
 // TODO:
 // - Добавить меню чата
 
-const CHATS_PREVIEW: ChatPreview[] = [
+const CHATS_PREVIEW: ChatType[] = [
   {
     chatId: "59d25a54-904d-4fb5-b1a4-6d42c3f03671",
     user: {
@@ -135,7 +134,7 @@ const ChatsPage = () => {
     container.scrollTop = container.scrollHeight;
   }, [messages]);
 
-  const sortedChats = useMemo<ChatPreview[]>(() => {
+  const sortedChats = useMemo<ChatType[]>(() => {
     if (!query) return chats;
 
     return chats.filter((chat) =>
@@ -185,9 +184,7 @@ const ChatsPage = () => {
           />
 
           {loading &&
-            [...Array(3)].map((_, index) => (
-              <ChatPreviewSkeleton key={index} />
-            ))}
+            [...Array(3)].map((_, index) => <ChatSkeleton key={index} />)}
 
           {sortedChats.length > 0 ? ( // Список чатов
             <div className="flex flex-col grow">
@@ -204,7 +201,7 @@ const ChatsPage = () => {
               ))}
             </div>
           ) : (
-            <EmptyStateNode query={query} length={chats.length} />
+            <ChatsEmptyState query={query} length={chats.length} />
           )}
         </div>
       </div>
@@ -218,7 +215,7 @@ const ChatsPage = () => {
             ref={messagesContainerRef}
           >
             {messages.map((message) => (
-              <MessageNode
+              <ChatMessage
                 key={message.messageId}
                 messageId={message.messageId}
                 text={message.text}

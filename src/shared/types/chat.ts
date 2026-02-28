@@ -5,7 +5,7 @@ export interface Message {
   status: "idle" | "sending" | "unread" | "read";
 }
 
-export interface ChatPreview {
+export interface Chat {
   chatId: string;
   user: {
     userId: string;

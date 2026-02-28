@@ -1,11 +1,11 @@
 import { Button } from "@/shared/ui/Button";
 
-interface EmptyStateNodeProps {
+interface ChatsEmptyStateProps {
   length: number;
   query: string;
 }
 
-export const EmptyStateNode = ({ length, query }: EmptyStateNodeProps) => {
+export const ChatsEmptyState = ({ length, query }: ChatsEmptyStateProps) => {
   if (length > 0)
     return (
       <p className="mx-8 mt-3">
