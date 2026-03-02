@@ -23,12 +23,11 @@ import { addMessage, setMessages } from "@/store/slices/currentChat";
 import { v4 } from "uuid";
 
 import { Input } from "@ui/Input";
-import { ChatSkeleton } from "./ui/ChatSkeleton";
 import { ChatsList } from "./ui/ChatsList";
 import { ChatPanel } from "./ui/ChatPanel";
 
 // TODO:
-// - Add chat menu (e.g., actions like delete, mute, etc.)
+// - Add chat menu
 
 /**
  * Mocked chat preview data (simulates backend response)
@@ -129,21 +128,13 @@ const ChatsPage = () => {
   const [currentChatId, setCurrentChatId] = useState<string>("");
 
   /**
-   * Local state: indicates chat previews loading
-   */
-  const [chatsLoading, setChatsLoading] = useState<boolean>(false);
-
-  /**
    * On mount:
    * - Simulates API request
    * - Stores chat previews in Redux
    */
   useEffect(() => {
-    setChatsLoading(true);
-
     const timer = setTimeout(() => {
       dispatch(setChatsPreview(CHATS_PREVIEW));
-      setChatsLoading(false);
     }, 300);
 
     return () => clearTimeout(timer);
@@ -222,14 +213,9 @@ const ChatsPage = () => {
             onValueChange={setQuery}
           />
 
-          {/* Loading skeletons */}
-          {chatsLoading &&
-            [...Array(3)].map((_, index) => <ChatSkeleton key={index} />)}
-
           {/* Chats list */}
           <ChatsList
             query={query}
-            chatsListEmpty={chats.length === 0}
             sortedChats={sortedChats}
             selectedId={currentChatId}
             onSelect={selectChat}

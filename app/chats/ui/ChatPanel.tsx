@@ -99,7 +99,7 @@ export const ChatPanel = ({
       {/* Message input and send button */}
       <div className="px-4 py-3 bg-white border-t border-t-stroke flex gap-4 items-center h-fit w-full">
         <Input
-          className="flex-auto"
+          classExtension="flex-auto"
           id="message"
           placeholder="Message"
           value={message}

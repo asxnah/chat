@@ -9,9 +9,6 @@ interface ChatsListProps {
   /** Search query */
   query: string;
 
-  /** Indicates whether the chats list is completely empty */
-  chatsListEmpty: boolean;
-
   /** Chats sorted by query */
   sortedChats: ChatType[];
 
@@ -27,12 +24,10 @@ interface ChatsListProps {
  *
  * Renders:
  * 1. A list of chats (if any exist),
- * 2. A "not found" message (if search returns no results),
- * 3. An empty state (if there are no chats at all).
+ * 2. An empty state (if there are no chats passed).
  */
 export const ChatsList = ({
   query,
-  chatsListEmpty,
   sortedChats,
   selectedId,
   onSelect,
@@ -87,30 +82,14 @@ export const ChatsList = ({
     );
   }
 
-  // If no chats match the search query
+  // If no chats passed
   if (sortedChats.length === 0) {
-    if (!chatsListEmpty) {
-      return (
-        <p className="mx-8 mt-3">
-          No chat with <span className="font-semibold">{query}</span> found
-        </p>
-      );
-    }
-
-    // If there are no chats at all (empty state)
-    if (chatsListEmpty) {
-      return (
-        <div className="h-full px-8 pt-3 flex flex-col gap-8 items-center justify-center">
-          <p className="text-3xl text-center">
-            You don&rsquo;t
-            <br />
-            have chats yet
-          </p>
-
-          {/* CTA button to start first conversation */}
-          <Button content="Send your first message" />
-        </div>
-      );
-    }
+    return query ? (
+      <p className="mx-8 mt-3 text-center">
+        No chat with <span className="font-semibold">{query}</span> found
+      </p>
+    ) : (
+      <p className="mx-8 mt-3 text-center text-darkgrey">Nothing found</p>
+    );
   }
 };
