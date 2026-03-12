@@ -20,7 +20,7 @@ const SignupPage = () => {
   );
 
   // Локальный state формы
-  const [formData, setFormData] = useState<User>({
+  const [formData, setFormData] = useState<Omit<User, "id">>({
     name: "",
     email: "",
     password: "",
@@ -43,7 +43,7 @@ const SignupPage = () => {
     setFormData({ ...formData, [key]: value });
 
     // Не сохраняем пароль в глобальный стор — только локально
-    if (key !== "password") dispatch(update({ key, value }));
+    if (key !== "password" && key !== "id") dispatch(update({ key, value }));
   };
 
   // Обработчик отправки формы

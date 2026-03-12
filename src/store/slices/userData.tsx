@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserDataState {
   // Состояние с данными пользователя без пароля
-  data: Omit<User, "password">;
+  data: Omit<User, "password" | "id">;
 }
 
 const initialState: UserDataState = {
@@ -19,7 +19,7 @@ export const userDataSlice = createSlice({
   initialState,
   reducers: {
     // Устанавливает полностью объект User (кроме пароля)
-    set: (state, action: PayloadAction<User>) => {
+    set: (state, action: PayloadAction<Omit<User, "id">>) => {
       state.data = action.payload;
     },
 
@@ -27,7 +27,7 @@ export const userDataSlice = createSlice({
     update: (
       state,
       action: PayloadAction<{
-        key: keyof Omit<User, "password">;
+        key: keyof Omit<User, "password" | "id">;
         value: string;
       }>,
     ) => {
