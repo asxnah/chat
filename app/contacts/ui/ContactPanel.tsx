@@ -8,25 +8,29 @@ interface ContactPanelProps {
 }
 
 const USER: Contact = {
-  id: '',
-  name: '',
-  email: '',
-  onClick: '',
-}
+  id: "",
+  name: "",
+  email: "",
+  isOnline: false,
+};
 
-export const ContactPanel = ({
-  id,
-}: ContactPanelProps) => {
+export const ContactPanel = ({ id }: ContactPanelProps) => {
   return (
     <div className="flex flex-col gap-4">
-      <User id={id} isAccount name={USER.name} email={USER.email} onClick={USER.onClick} />
+      <User
+        id={id}
+        isAccount
+        name={USER.name}
+        email={USER.email}
+        onClick={() => {}}
+      />
 
       <div>
         <ActionButton
           text="Write a message"
           destination={`/chats?userId=${id}`}
         />
-        <Toggler content='Notifications' checked= onToggle= />
+        <Toggler content="Notifications" checked={false} onToggle={() => {}} />
       </div>
     </div>
   );
