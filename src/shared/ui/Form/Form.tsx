@@ -7,12 +7,12 @@ interface FormProps {
   // Текст кнопки формы
   buttonText: string;
   // Функция, вызываемая при отправке формы, получает объект User
-  onSubmit: (userData: Omit<User, "password">) => void;
+  onSubmit: (userData: Omit<User, "id" | "password">) => void;
 }
 
 export const Form = ({ buttonText, onSubmit }: FormProps) => {
   // Состояние формы с полями name и email
-  const [userData, setUserData] = useState<Omit<User, "password">>({
+  const [userData, setUserData] = useState<Omit<User, "id" | "password">>({
     name: "",
     email: "",
   });

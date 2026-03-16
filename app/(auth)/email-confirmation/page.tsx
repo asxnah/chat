@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
 import { redirect } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/rootReducer";
 
 const emailConfirmation = () => {
   // Состояние для хранения кода подтверждения (4 отдельных символа)
@@ -14,7 +16,7 @@ const emailConfirmation = () => {
   const [isCorrect, setIsCorrect] = useState(true);
 
   // Получаем email из localStorage или показываем заглушку
-  const storageEmail = localStorage.getItem("email") || "your email";
+  const storageEmail = useSelector((state: RootState) => state.userData.data.email);
 
   // Эффект проверки кода при изменении состояния code
   useEffect(() => {

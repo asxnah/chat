@@ -19,7 +19,7 @@ const LoginPage = () => {
 
   // Локальное состояние формы: email и password
   // Не включаем name, так как это страница логина
-  const [formData, setFormData] = useState<Omit<User, "name">>({
+  const [formData, setFormData] = useState<Omit<User, "id" | "name">>({
     email: "",
     password: "",
   });

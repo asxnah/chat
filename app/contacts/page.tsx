@@ -108,7 +108,7 @@ const ContactsPage = () => {
       </div>
 
       {/* Right panel: current contact */}
-      <ContactPanel />
+      <ContactPanel id={currentContactId} />
     </main>
   );
 };
