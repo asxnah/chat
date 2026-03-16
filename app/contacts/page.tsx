@@ -36,7 +36,9 @@ const ContactsPage = () => {
   /**
    * Chat previews list (Redux state)
    */
-  const contacts = useSelector((state: RootState) => state.contacts.contacts);
+  const contacts = useSelector(
+    (state: RootState) => state.contacts.contacts || [],
+  );
 
   /**
    * Local state: search query
@@ -68,7 +70,7 @@ const ContactsPage = () => {
     if (!query) return contacts;
 
     return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(query.toLowerCase()),
+      contact.name?.toLowerCase().includes(query.toLowerCase()),
     );
   }, [contacts, query]);
 
