@@ -56,7 +56,7 @@ export const ChatsList = ({
             {/* User avatar (first letter of user's name) */}
             <div className="shrink-0 w-13.5 h-13.5 rounded-full grid place-items-center bg-lightgrey">
               <p className="text-2xl font-bold text-white">
-                {chat.user.name[0].toUpperCase() || "U"}
+                {chat.user.name[0] ? chat.user.name[0].toUpperCase() : "U"}
               </p>
             </div>
 

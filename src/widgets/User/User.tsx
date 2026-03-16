@@ -43,7 +43,7 @@ export const User = ({
           } ${isOnline ? "relative" : ""}`}
         >
           <p className="text-2xl font-bold text-white">
-            {name[0].toUpperCase() || "U"}
+            {name[0] ? name[0].toUpperCase() : "U"}
           </p>
           {isOnline && (
             <div className="absolute z-99 bottom-0 right-0 w-2 h-2 bg-black rounded-full"></div>
