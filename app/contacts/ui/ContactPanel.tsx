@@ -7,11 +7,10 @@ interface ContactPanelProps {
   id: string;
 }
 
-const USER: Contact = {
+const USER: Omit<Contact, "isOnline"> = {
   id: "",
   name: "",
   email: "",
-  isOnline: false,
 };
 
 export const ContactPanel = ({ id }: ContactPanelProps) => {
