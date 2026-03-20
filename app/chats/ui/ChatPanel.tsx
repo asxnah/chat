@@ -9,6 +9,7 @@ import { Input } from "@/shared/ui/Input";
 import { Send } from "@/shared/ui/icons";
 
 import { user as userData } from "../../mocks.json";
+import { ChatMenu } from "./ChatMenu";
 const USER = userData as Omit<User, "password">;
 
 /**
@@ -71,7 +72,10 @@ export const ChatPanel = ({
   };
 
   return (
-    <div className="grow flex flex-col h-screen">
+    <div className="relative grow flex flex-col h-screen">
+      {/* Menu */}
+      <ChatMenu />
+
       {/* Messages list */}
       {messages.length > 0 && (
         <div
@@ -91,14 +95,12 @@ export const ChatPanel = ({
           ))}
         </div>
       )}
-
       {/* Empty state when there are no messages */}
       {messages.length === 0 && (
         <p className="text-center text-darkgrey mt-auto mb-8">
           Select a chat or a contact to start messaging
         </p>
       )}
-
       {/* Message input and send button */}
       <div className="px-4 py-3 bg-white border-t border-t-stroke flex gap-4 items-center h-fit w-full">
         <Input
