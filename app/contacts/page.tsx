@@ -15,26 +15,14 @@ import { User } from "@/widgets/User";
 import { UserPlus } from "lucide-react";
 import { ContactPanel } from "./ui/ContactPanel";
 
-const CONTACTS: Contact[] = [
-  {
-    id: "f3o9n476tf7ow98ae",
-    name: "User-1",
-    email: "example@email.com",
-    isOnline: true,
-  },
-  {
-    id: "qf89nty75rclemd",
-    name: "User-2",
-    email: "email@example.com",
-    isOnline: false,
-  },
-];
+import { contacts as data } from "./mocks.json";
+const CONTACTS: Contact[] = data;
 
 const ContactsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   /**
-   * Chat previews list (Redux state)
+   * Contact previews list (Redux state)
    */
   const contacts = useSelector(
     (state: RootState) => state.contacts.contacts || [],
@@ -44,6 +32,13 @@ const ContactsPage = () => {
    * Local state: search query
    */
   const [query, setQuery] = useState<string>("");
+
+  /**
+   * Local state: currently selected user
+   */
+  const [user, setUser] = useState<Omit<Contact, "isOnline" | "id"> | null>(
+    null,
+  );
 
   /**
    * Local state: currently selected contact ID
@@ -74,10 +69,26 @@ const ContactsPage = () => {
     );
   }, [contacts, query]);
 
+  /**
+   * Handles contact selection
+   */
+  const selectContact = (id: string) => {
+    setCurrentContactId(id);
+
+    const currentContact = contacts.find((contact) => contact.id === id);
+
+    if (currentContact) {
+      setUser({
+        name: currentContact.name,
+        email: currentContact.email,
+      });
+    }
+  };
+
   return (
     <main className="flex">
       {/* Left panel: search + contacts list */}
-      <div className="w-120 border-r border-r-stroke">
+      <div className="w-120 shrink-0 border-r border-r-stroke">
         <div className="h-full flex flex-col">
           {/* Search input + add contact button */}
           <div className="flex gap-4 mx-8 my-3">
@@ -100,7 +111,7 @@ const ContactsPage = () => {
                 isAccount={false}
                 name={contact.name}
                 email={contact.email}
-                onClick={setCurrentContactId}
+                onClick={selectContact}
                 isSelected={currentContactId === contact.id}
                 isOnline={contact.isOnline}
               />
@@ -110,7 +121,17 @@ const ContactsPage = () => {
       </div>
 
       {/* Right panel: current contact */}
-      <ContactPanel id={currentContactId} />
+      {user ? (
+        <ContactPanel
+          id={currentContactId}
+          user={user}
+          onClick={selectContact}
+        />
+      ) : (
+        <p className="w-full text-center text-darkgrey mt-auto mb-8">
+          Select a chat or a contact to start messaging
+        </p>
+      )}
     </main>
   );
 };

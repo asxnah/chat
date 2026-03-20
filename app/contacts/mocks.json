@@ -1,0 +1,16 @@
+{
+  "contacts": [
+    {
+      "id": "cbd343a8-ce8d-45c7-9f06-608767e5fd1d",
+      "name": "User-1",
+      "email": "example@email.com",
+      "isOnline": true
+    },
+    {
+      "id": "88b5ee5e-c264-47b4-94c2-9ad49a2e7c10",
+      "name": "User-2",
+      "email": "email@example.com",
+      "isOnline": false
+    }
+  ]
+}

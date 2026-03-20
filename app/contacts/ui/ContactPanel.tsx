@@ -5,23 +5,19 @@ import { User } from "@/widgets/User";
 
 interface ContactPanelProps {
   id: string;
+  user: Omit<Contact, "isOnline" | "id">;
+  onClick: (id: string) => void;
 }
 
-const USER: Omit<Contact, "isOnline"> = {
-  id: "",
-  name: "",
-  email: "",
-};
-
-export const ContactPanel = ({ id }: ContactPanelProps) => {
+export const ContactPanel = ({ id, user, onClick }: ContactPanelProps) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="grow flex flex-col gap-4 h-screen">
       <User
         id={id}
         isAccount
-        name={USER.name}
-        email={USER.email}
-        onClick={() => {}}
+        name={user.name}
+        email={user.email}
+        onClick={() => onClick(id)}
       />
 
       <div>
