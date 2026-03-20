@@ -1,11 +1,15 @@
 import { useEffect, useRef } from "react";
 import { Message } from "@/shared/types/chat";
+import { User } from "@/shared/types/user";
 
 import { timeFormatter } from "../utils/formatter";
 
 import { ChatMessage } from "./ChatMessage";
 import { Input } from "@/shared/ui/Input";
 import { Send } from "@/shared/ui/icons";
+
+import { user as userData } from "../../mocks.json";
+const USER = userData as Omit<User, "password">;
 
 /**
  * Props for the ChatPanel component.
@@ -77,9 +81,8 @@ export const ChatPanel = ({
           {messages.map((message) => (
             <ChatMessage
               key={message.messageId} // Unique key for list rendering
-              messageId={message.messageId}
               text={message.text}
-              status={message.status}
+              status={message.userId === USER.id ? "read" : "idle"}
               createdAt={
                 // Format message timestamp before passing to child component
                 timeFormatter.format(new Date(message.createdAt))

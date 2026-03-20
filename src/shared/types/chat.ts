@@ -1,8 +1,10 @@
 export interface Message {
   messageId: string;
+  chatId: string;
+  userId: string;
   text: string;
+  isRead: true;
   createdAt: string;
-  status: "idle" | "sending" | "unread" | "read";
 }
 
 export interface Chat {
@@ -12,5 +14,6 @@ export interface Chat {
     name: string;
     isOnline: boolean;
   };
+  unreadCount: number;
   messages: Message[];
 }

@@ -1,4 +1,3 @@
-import { Message } from "@/shared/types/chat";
 import { Check, CheckCheck, Clock } from "lucide-react";
 
 /**
@@ -12,7 +11,14 @@ import { Check, CheckCheck, Clock } from "lucide-react";
  * The visual appearance depends on whether the message
  * was sent by the current user or received.
  */
-export const ChatMessage = ({ text, createdAt, status }: Message) => {
+
+interface ChatMessageProps {
+  text: string;
+  createdAt: string;
+  status: "read" | "unread" | "sending" | "idle";
+}
+
+export const ChatMessage = ({ text, createdAt, status }: ChatMessageProps) => {
   /**
    * Determines if the message was sent by the current user.
    * Convention: any status other than "idle" is treated as sent.
