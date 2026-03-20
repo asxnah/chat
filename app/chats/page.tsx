@@ -202,7 +202,7 @@ const ChatsPage = () => {
   return (
     <main className="flex">
       {/* Left panel: search + chats list */}
-      <div className="w-120 border-r border-r-stroke">
+      <div className="w-120 shrink-0 border-r border-r-stroke">
         <div className="h-full flex flex-col">
           {/* Search input */}
           <Input
