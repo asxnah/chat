@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@/store";
 import { RootState } from "@/store/rootReducer";
 import { setChatsPreview } from "@/store/slices/chatsPreview";
-import { addMessage, setMessages } from "@/store/slices/currentChat";
+import { addMessage, setMessages } from "@/store/slices/messages";
 
 import { v4 } from "uuid";
 
@@ -42,9 +42,7 @@ const ChatsPage = () => {
   /**
    * Messages of the currently selected chat (Redux state)
    */
-  const messages = useSelector(
-    (state: RootState) => state.currentChat.messages,
-  );
+  const messages = useSelector((state: RootState) => state.messages.data);
 
   /**
    * Chat previews list (Redux state)
