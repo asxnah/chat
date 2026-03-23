@@ -63,6 +63,10 @@ const ContactsPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  /**
+   * Effect for selecting contact when URL param changes
+   * - Runs when `id` or `contacts` change
+   */
   useEffect(() => {
     if (id && contacts.length > 0) {
       selectContact(id);
@@ -71,6 +75,7 @@ const ContactsPage = () => {
 
   /**
    * Memoized filtered contacts based on search query
+   * - Improves performance by recalculating only when `contacts` or `query` changes
    */
   const sortedContacts = useMemo<Contact[]>(() => {
     if (!query) return contacts;
@@ -82,6 +87,9 @@ const ContactsPage = () => {
 
   /**
    * Handles contact selection
+   * - Updates selected contact state
+   * - Updates URL search param `userId`
+   * @param id Contact ID
    */
   const selectContact = (id: string) => {
     setCurrentContactId(id);
@@ -98,6 +106,11 @@ const ContactsPage = () => {
     router.replace(`?userId=${id}`);
   };
 
+  /**
+   * Renders the main contacts page layout
+   * - Left panel: search + contacts list
+   * - Right panel: current contact details
+   */
   return (
     <main className="flex">
       {/* Left panel: search + contacts list */}

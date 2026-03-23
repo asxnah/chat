@@ -31,6 +31,7 @@ interface ChatPanelProps {
   /** List of messages in the current chat */
   messages: Message[];
 
+  /** Current user info, without password and email */
   user: Omit<User, "password" | "email">;
 }
 
@@ -52,8 +53,13 @@ export const ChatPanel = ({
 }: ChatPanelProps) => {
   const router = useRouter();
 
+  /** State for showing the bug report modal */
   const [isBugRepShown, setBugRepShown] = useState(false);
+
+  /** State for showing background control modal */
   const [isBgCtrlShown, setBgCtrlShown] = useState(false);
+
+  /** State for showing the chat menu */
   const [menuShown, setMenuShown] = useState(false);
 
   /**
@@ -76,6 +82,8 @@ export const ChatPanel = ({
   /**
    * Handles keyboard interaction inside the input field.
    * Sends message when Enter key is pressed.
+   *
+   * @param e - Keyboard event from the input field
    */
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -83,6 +91,11 @@ export const ChatPanel = ({
     }
   };
 
+  /**
+   * Handles clicks on menu actions.
+   *
+   * @param action - Type of action triggered: 'user', 'bg', 'bug', or 'menu'
+   */
   const handleClick = (action: "user" | "bg" | "bug" | "menu") => {
     switch (action) {
       case "user":
@@ -96,7 +109,6 @@ export const ChatPanel = ({
         break;
       case "menu":
         setMenuShown((prev) => !prev);
-
       default:
         break;
     }

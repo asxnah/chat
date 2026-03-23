@@ -9,8 +9,33 @@
  * - Manages current chat messages
  * - Provides search functionality
  * - Handles sending new messages
+ *
+ * State:
+ * - query: string, stores search input value
+ * - message: string, stores current message input
+ * - currentChatId: string, stores ID of selected chat
+ * - currentUser: object, stores basic info of chat partner
+ *
+ * Redux:
+ * - chats: array of chat previews from Redux
+ * - messages: array of messages of currently selected chat from Redux
+ *
+ * Effects:
+ * - Sets currentUser when currentChatId changes
+ * - Loads chats preview into Redux on mount if not already loaded
+ *
+ * Memoization:
+ * - sortedChats: memoized list of chats filtered by search query
+ *
+ * Handlers:
+ * - selectChat: sets current chat and loads its messages
+ * - sendMessage: adds a new message to Redux and clears input
+ *
+ * Components used:
+ * - Input: search and message input field
+ * - ChatsList: displays list of chats
+ * - ChatPanel: displays messages and input for current chat
  */
-
 import { useEffect, useMemo, useState } from "react";
 import { Chat as ChatType } from "@/shared/types/chat";
 import { User } from "@/shared/types/user";
@@ -64,6 +89,9 @@ const ChatsPage = () => {
    */
   const [currentChatId, setCurrentChatId] = useState<string>("");
 
+  /**
+   * Local state: basic info of currently selected chat user
+   */
   const [currentUser, setCurrentUser] = useState<
     Omit<User, "password" | "email">
   >({
@@ -71,6 +99,9 @@ const ChatsPage = () => {
     name: "",
   });
 
+  /**
+   * Updates currentUser whenever currentChatId changes
+   */
   useEffect(() => {
     const currentChat = CHATS.find((chat) => chat.chatId === currentChatId);
     if (currentChat) {
@@ -83,9 +114,8 @@ const ChatsPage = () => {
   }, [currentChatId]);
 
   /**
-   * On mount:
-   * - Simulates API request
-   * - Stores messages in Redux
+   * Loads chats preview into Redux on mount
+   * Simulates API request with a timeout
    */
   useEffect(() => {
     if (messages.length === 0) {
@@ -97,7 +127,8 @@ const ChatsPage = () => {
   }, [messages]);
 
   /**
-   * Memoized filtered chats based on search query
+   * Returns chats filtered by search query
+   * Memoized for performance
    */
   const sortedChats = useMemo<ChatType[]>(() => {
     if (!query) return chats;
@@ -108,13 +139,14 @@ const ChatsPage = () => {
   }, [chats, query]);
 
   /**
-   * Handles chat selection
-   * Loads messages when current chat selected
-   * (Currently mocked with static data)
+   * Handles chat selection:
+   * - Updates current chat ID
+   * - Clears message input
+   * - Loads messages of selected chat into Redux
    */
   const selectChat = (id: string) => {
     setCurrentChatId(id);
-    setMessage(""); // Clear input when switching chats
+    setMessage("");
 
     const currentChat = CHATS.find((chat) => chat.chatId === id);
 
@@ -127,7 +159,7 @@ const ChatsPage = () => {
    * Sends a new message:
    * - Trims input
    * - Generates unique ID
-   * - Dispatches Redux action
+   * - Dispatches Redux action to add message
    * - Clears input
    */
   const sendMessage = () => {
@@ -148,6 +180,11 @@ const ChatsPage = () => {
     setMessage("");
   };
 
+  /**
+   * Render:
+   * - Left panel: search input + chats list
+   * - Right panel: current chat messages + message input
+   */
   return (
     <main className="flex">
       {/* Left panel: search + chats list */}
