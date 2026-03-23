@@ -1,6 +1,5 @@
 import { Chat as ChatType } from "@/shared/types/chat";
 import { formatDateTime } from "../utils/formatter";
-import { Button } from "@/shared/ui/Button";
 
 /**
  * Props for the ChatsList component.
