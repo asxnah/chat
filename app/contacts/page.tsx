@@ -3,16 +3,16 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { Contact } from "@/shared/types/user";
+import { Contact } from "@shared-types/user";
 
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store/rootReducer";
-import { AppDispatch } from "@/store";
-import { setContacts } from "@/store/slices/contacts";
+import { RootState } from "@store/rootReducer";
+import { AppDispatch } from "@store";
+import { setContacts } from "@store/slices/contacts";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
-import { User } from "@/widgets/User";
+import { User } from "@widgets/User";
 import { UserPlus } from "lucide-react";
 import { ContactPanel } from "./ui/ContactPanel";
 

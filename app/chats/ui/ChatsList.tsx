@@ -1,4 +1,4 @@
-import { Chat as ChatType } from "@/shared/types/chat";
+import { Chat as ChatType } from "@shared-types/chat";
 import { formatDateTime } from "../utils/formatter";
 
 /**

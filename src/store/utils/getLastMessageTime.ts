@@ -1,4 +1,4 @@
-import { Chat } from "@/shared/types/chat";
+import { Chat } from "@shared-types/chat";
 
 export const getLastMessageTime = (chat: Chat): number => {
   if (!chat.messages.length) return 0;

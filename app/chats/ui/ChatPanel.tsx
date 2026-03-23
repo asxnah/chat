@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { Message } from "@/shared/types/chat";
-import { User } from "@/shared/types/user";
+import { Message } from "@shared-types/chat";
+import { User } from "@shared-types/user";
 
 import { timeFormatter } from "../utils/formatter";
 
 import { ChatMenu } from "./ChatMenu";
 import { ChatMessage } from "./ChatMessage";
-import { Input } from "@/shared/ui/Input";
-import { Send } from "@/shared/ui/icons";
+import { Input } from "@ui/Input";
+import { Send } from "@ui/icons";
 
 import { user as userData } from "../../mocks.json";
 

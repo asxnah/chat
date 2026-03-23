@@ -1,4 +1,4 @@
-import { Chat } from "@/shared/types/chat";
+import { Chat } from "@shared-types/chat";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getLastMessageTime } from "../utils/getLastMessageTime";
 

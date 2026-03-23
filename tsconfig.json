@@ -19,11 +19,12 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@store/": ["./src/store/*"],
+      "@store": ["./src/store"],
+      "@store/*": ["./src/store/*"],
       "@ui/*": ["./src/shared/ui/*"],
       "@icons": ["./src/shared/ui/icons"],
-      "@widgets/*": ["./src/widgets/*"]
+      "@widgets/*": ["./src/widgets/*"],
+      "@shared-types/*": ["./src/shared/types/*"]
     }
   },
   "include": [

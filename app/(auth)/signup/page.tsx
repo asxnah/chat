@@ -4,12 +4,12 @@ import { useState, FormEvent, useEffect } from "react";
 import Link from "next/link";
 
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store/rootReducer";
-import { update } from "@/store/slices/userData";
+import { RootState } from "@store/rootReducer";
+import { update } from "@store/slices/userData";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
-import { User } from "@/shared/types/user";
+import { User } from "@shared-types/user";
 
 const SignupPage = () => {
   const dispatch = useDispatch();

@@ -1,4 +1,4 @@
-import { Contact } from "@/shared/types/user";
+import { Contact } from "@shared-types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ContactsData {

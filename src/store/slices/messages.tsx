@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Message } from "@/shared/types/chat";
+import { Message } from "@shared-types/chat";
 
 interface Messages {
   data: Message[];

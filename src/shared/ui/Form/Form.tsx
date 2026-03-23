@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Button } from "@ui/Button";
 import { Input } from "@ui/Input";
-import { User } from "@/shared/types/user";
+import { User } from "@shared-types/user";
 
 interface FormProps {
   // Текст кнопки формы

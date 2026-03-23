@@ -1,7 +1,7 @@
-import { Contact } from "@/shared/types/user";
-import { ActionButton } from "@/shared/ui/ActionButton";
-import { Toggler } from "@/shared/ui/Toggler";
-import { User } from "@/widgets/User";
+import { Contact } from "@shared-types/user";
+import { ActionButton } from "@ui/ActionButton";
+import { Toggler } from "@ui/Toggler";
+import { User } from "@widgets/User";
 
 interface ContactPanelProps {
   id: string;

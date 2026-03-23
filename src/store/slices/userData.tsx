@@ -1,4 +1,4 @@
-import { User } from "@/shared/types/user";
+import { User } from "@shared-types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface UserDataState {

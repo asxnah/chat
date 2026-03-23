@@ -37,14 +37,14 @@
  * - ChatPanel: displays messages and input for current chat
  */
 import { useEffect, useMemo, useState } from "react";
-import { Chat as ChatType } from "@/shared/types/chat";
-import { User } from "@/shared/types/user";
+import { Chat as ChatType } from "@shared-types/chat";
+import { User } from "@shared-types/user";
 
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "@/store";
-import { RootState } from "@/store/rootReducer";
-import { setChatsPreview } from "@/store/slices/chatsPreview";
-import { addMessage, setMessages } from "@/store/slices/messages";
+import { AppDispatch } from "@store";
+import { RootState } from "@store/rootReducer";
+import { setChatsPreview } from "@store/slices/chatsPreview";
+import { addMessage, setMessages } from "@store/slices/messages";
 
 import { v4 } from "uuid";
 
