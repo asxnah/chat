@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { Contact } from "@/shared/types/user";
 
@@ -20,6 +21,10 @@ const CONTACTS: Contact[] = data;
 
 const ContactsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
+
+  const searchParams = useSearchParams();
+  const id = searchParams.get("userId");
 
   /**
    * Contact previews list (Redux state)
@@ -58,6 +63,12 @@ const ContactsPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (id && contacts.length > 0) {
+      selectContact(id);
+    }
+  }, [id, contacts]);
+
   /**
    * Memoized filtered contacts based on search query
    */
@@ -83,6 +94,8 @@ const ContactsPage = () => {
         email: currentContact.email,
       });
     }
+
+    router.replace(`?userId=${id}`);
   };
 
   return (

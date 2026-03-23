@@ -64,6 +64,24 @@ const ChatsPage = () => {
    */
   const [currentChatId, setCurrentChatId] = useState<string>("");
 
+  const [currentUser, setCurrentUser] = useState<
+    Omit<User, "password" | "email">
+  >({
+    id: "",
+    name: "",
+  });
+
+  useEffect(() => {
+    const currentChat = CHATS.find((chat) => chat.chatId === currentChatId);
+    if (currentChat) {
+      const user = currentChat.user;
+      setCurrentUser({
+        id: user.userId,
+        name: user.name,
+      });
+    }
+  }, [currentChatId]);
+
   /**
    * On mount:
    * - Simulates API request
@@ -160,6 +178,7 @@ const ChatsPage = () => {
         onMessageChange={setMessage}
         onMessageSend={sendMessage}
         messages={messages}
+        user={currentUser}
       />
     </main>
   );

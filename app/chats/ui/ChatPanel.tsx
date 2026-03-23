@@ -1,15 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { Message } from "@/shared/types/chat";
 import { User } from "@/shared/types/user";
 
 import { timeFormatter } from "../utils/formatter";
 
+import { ChatMenu } from "./ChatMenu";
 import { ChatMessage } from "./ChatMessage";
 import { Input } from "@/shared/ui/Input";
 import { Send } from "@/shared/ui/icons";
 
 import { user as userData } from "../../mocks.json";
-import { ChatMenu } from "./ChatMenu";
+
 const USER = userData as Omit<User, "password">;
 
 /**
@@ -27,6 +30,8 @@ interface ChatPanelProps {
 
   /** List of messages in the current chat */
   messages: Message[];
+
+  user: Omit<User, "password" | "email">;
 }
 
 /**
@@ -43,7 +48,14 @@ export const ChatPanel = ({
   onMessageChange,
   onMessageSend,
   messages,
+  user,
 }: ChatPanelProps) => {
+  const router = useRouter();
+
+  const [isBugRepShown, setBugRepShown] = useState(false);
+  const [isBgCtrlShown, setBgCtrlShown] = useState(false);
+  const [menuShown, setMenuShown] = useState(false);
+
   /**
    * Reference to the scrollable messages container.
    * Used to automatically scroll to the bottom when new messages arrive or overflow container.
@@ -71,10 +83,35 @@ export const ChatPanel = ({
     }
   };
 
+  const handleClick = (action: "user" | "bg" | "bug" | "menu") => {
+    switch (action) {
+      case "user":
+        router.push(`/contacts?userId=${user.id}`);
+        break;
+      case "bg":
+        setBgCtrlShown(true);
+        break;
+      case "bug":
+        setBugRepShown(true);
+        break;
+      case "menu":
+        setMenuShown((prev) => !prev);
+
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="relative grow flex flex-col h-screen">
       {/* Menu */}
-      <ChatMenu />
+      {user.name.trim() !== "" && (
+        <ChatMenu
+          name={user.name}
+          menuShown={menuShown}
+          onClick={handleClick}
+        />
+      )}
 
       {/* Messages list */}
       {messages.length > 0 && (
