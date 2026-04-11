@@ -1,82 +1,44 @@
 "use client";
 
-import { FormEvent, useState, KeyboardEvent, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import Link from "next/link";
 
-import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/rootReducer";
 import { v4 } from "uuid";
 
+import { CodeInput } from "@features/code-input";
+
 const CODE = "1111";
 
-const emailConfirmation = () => {
+const EmailConfirmation = () => {
+  const router = useRouter();
+
   // Состояние для хранения кода подтверждения (4 отдельных символа)
   const [code, setCode] = useState<string[]>(["", "", "", ""]);
+
   // Состояние корректности введенного кода
   const [isCorrect, setIsCorrect] = useState(true);
 
   // Получаем email из Redux
   const storageEmail = useSelector((state: RootState) => state.user.user.email);
 
-  // Эффект проверки кода при изменении состояния code
-  useEffect(() => {
-    // Если все поля заполнены и код неверный, показываем ошибку
-    if (code.every((c) => c !== "") && code.join("") !== CODE) {
-      setIsCorrect(false);
-    }
-
-    // Если код верный, перенаправляем на /chats и создаем токен сессии
-    if (code.join("") === CODE) {
-      localStorage.setItem("token", v4());
-      redirect("/chats");
-    }
-  }, [code]);
-
-  // Обработчик изменения одного из полей кода
-  const handleChange = (value: string, index: number) => {
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
-
-    // Автопереход к следующему полю, если текущий символ введен и это не последний input
-    if (value && index < 3) {
-      const nextInput = document.querySelector(
-        `#code-${index + 1}`,
-      ) as HTMLInputElement | null;
-
-      if (nextInput) nextInput.focus();
-    }
-  };
-
-  // Обработчик нажатия Backspace для перемещения курсора назад
-  const handleBackspace = (
-    e: KeyboardEvent<HTMLInputElement>,
-    index: number,
-  ) => {
-    // Если нажата Backspace и текущее поле пустое, переносим фокус на предыдущее
-    if (e.key === "Backspace" && !code[index] && index > 0) {
-      if (code[index]) {
-        const newCode = [...code];
-        newCode[index] = "";
-        setCode(newCode);
-      }
-
-      const prevInput = document.querySelector(
-        `#code-${index - 1}`,
-      ) as HTMLInputElement;
-
-      if (prevInput) prevInput.focus();
-    }
-  };
-
-  // Обработчик отправки формы
+  // Обработчик отправки формы (проверка только по кнопке)
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Здесь обычно выполняли бы валидацию и отправку на сервер
-    console.log(JSON.stringify(code));
+
+    // Если код неверный — показываем ошибку
+    if (code.join("") !== CODE) {
+      setIsCorrect(false);
+      return;
+    }
+
+    // Если код верный — создаём токен и редиректим
+    setIsCorrect(true);
+    localStorage.setItem("token", v4());
+    router.push("/chats");
   };
 
   return (
@@ -87,6 +49,7 @@ const emailConfirmation = () => {
           <h1 className="text-4xl font-semibold text-center">
             Confrirm your email
           </h1>
+
           <p className="text-darkgrey text-center">
             The code was sent to {storageEmail}.{" "}
             <Link className="underline" href="/signup">
@@ -95,25 +58,13 @@ const emailConfirmation = () => {
           </p>
         </header>
 
-        {/* Поля для ввода кода */}
-        <div className="flex justify-center gap-4">
-          {code.map((c, index) => (
-            <Input
-              key={index}
-              classExtension="w-11.5 h-11.5 text-center"
-              id={`code-${index}`}
-              placeholder="_"
-              autoComplete="email"
-              maxLength={1}
-              value={c}
-              onValueChange={(value) => handleChange(value, index)}
-              onKeyDown={(e) => handleBackspace(e, index)}
-            />
-          ))}
-        </div>
-
-        {/* Сообщение об ошибке при неправильном коде */}
-        {!isCorrect && <p className="text-red text-center">Incorrect code</p>}
+        {/* Блок ввода кода */}
+        <CodeInput
+          code={code}
+          setCode={setCode}
+          isCorrect={isCorrect}
+          setIsCorrect={setIsCorrect}
+        />
 
         {/* Кнопка подтверждения: выключена, если есть пустые поля */}
         <Button
@@ -126,4 +77,4 @@ const emailConfirmation = () => {
   );
 };
 
-export default emailConfirmation;
+export default EmailConfirmation;
