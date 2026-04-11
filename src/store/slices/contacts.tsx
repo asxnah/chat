@@ -10,7 +10,7 @@ const initialState: ContactsData = {
 };
 
 export const contactsSlice = createSlice({
-  name: "chatsPreview",
+  name: "contacts",
   initialState,
   reducers: {
     setContacts: (state: ContactsData, action: PayloadAction<Contact[]>) => {
@@ -19,10 +19,24 @@ export const contactsSlice = createSlice({
     addContact: (state: ContactsData, action: PayloadAction<Contact>) => {
       state.contacts.push(action.payload);
     },
+    updateContact: (
+      state,
+      action: PayloadAction<{
+        contactId: string;
+        key: keyof Contact;
+        value: string;
+      }>,
+    ) => {
+      const { contactId, key, value } = action.payload;
+      const contact = state.contacts.find(
+        (contact) => contact.id === contactId,
+      );
+      if (contact) {
+        (contact[key] as Contact[keyof Contact]) = value;
+      }
+    },
   },
 });
 
-// Экспортируем action
-export const { setContacts, addContact } = contactsSlice.actions;
-// Экспортируем редьюсер по умолчанию
+export const { setContacts, addContact, updateContact } = contactsSlice.actions;
 export default contactsSlice.reducer;

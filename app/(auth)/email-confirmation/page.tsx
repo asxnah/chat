@@ -8,6 +8,9 @@ import { Button } from "@ui/Button";
 import { redirect } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/rootReducer";
+import { v4 } from "uuid";
+
+const CODE = "1111";
 
 const emailConfirmation = () => {
   // Состояние для хранения кода подтверждения (4 отдельных символа)
@@ -15,20 +18,21 @@ const emailConfirmation = () => {
   // Состояние корректности введенного кода
   const [isCorrect, setIsCorrect] = useState(true);
 
-  // Получаем email из localStorage или показываем заглушку
-  const storageEmail = useSelector(
-    (state: RootState) => state.userData.data.email,
-  );
+  // Получаем email из Redux
+  const storageEmail = useSelector((state: RootState) => state.user.user.email);
 
   // Эффект проверки кода при изменении состояния code
   useEffect(() => {
     // Если все поля заполнены и код неверный, показываем ошибку
-    if (code.every((c) => c !== "") && code.join("") !== "1111") {
+    if (code.every((c) => c !== "") && code.join("") !== CODE) {
       setIsCorrect(false);
     }
 
-    // Если код верный, перенаправляем на /chats
-    if (code.join("") === "1111") redirect("/chats");
+    // Если код верный, перенаправляем на /chats и создаем токен сессии
+    if (code.join("") === CODE) {
+      localStorage.setItem("token", v4());
+      redirect("/chats");
+    }
   }, [code]);
 
   // Обработчик изменения одного из полей кода

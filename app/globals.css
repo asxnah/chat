@@ -10,13 +10,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Redacted";
-  src: url("/fonts/Redacted/Redacted-Regular.ttf") format("truetype-variations");
-  font-weight: 400;
-  font-style: normal;
-}
-
 /* Основные переменные и цвета */
 :root {
   font-family: "Open Sans Variable", sans-serif;
@@ -28,6 +21,7 @@
   /* Scrollbar */
   ::-webkit-scrollbar {
     width: 0.375rem;
+    height: 0.375rem;
     background-color: #fafafa;
   }
   ::-webkit-scrollbar-thumb {

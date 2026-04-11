@@ -1,5 +1,15 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 export default function Home() {
-  return (
-    <main className="p-4 flex flex-col gap-2 overflow-scroll h-screen"></main>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    router.replace(token ? "/chats" : "/login");
+  }, [router]);
+
+  return null;
 }

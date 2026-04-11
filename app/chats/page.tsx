@@ -43,7 +43,7 @@ import { User } from "@shared-types/user";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "@store";
 import { RootState } from "@store/rootReducer";
-import { setChatsPreview } from "@store/slices/chatsPreview";
+import { setChats } from "@store/slices/chats";
 import { addMessage, setMessages } from "@store/slices/messages";
 
 import { v4 } from "uuid";
@@ -67,12 +67,12 @@ const ChatsPage = () => {
   /**
    * Messages of the currently selected chat (Redux state)
    */
-  const messages = useSelector((state: RootState) => state.messages.data);
+  const messages = useSelector((state: RootState) => state.messages.messages);
 
   /**
    * Chat previews list (Redux state)
    */
-  const chats = useSelector((state: RootState) => state.chatsPreview.chats);
+  const chats = useSelector((state: RootState) => state.chats.chats);
 
   /**
    * Local state: search query
@@ -120,7 +120,7 @@ const ChatsPage = () => {
   useEffect(() => {
     if (messages.length === 0) {
       const timer = setTimeout(() => {
-        dispatch(setChatsPreview(CHATS_PREVIEW));
+        dispatch(setChats(CHATS_PREVIEW));
       }, 300);
       return () => clearTimeout(timer);
     }

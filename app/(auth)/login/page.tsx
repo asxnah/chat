@@ -1,51 +1,50 @@
 "use client";
 
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
+import { v4 } from "uuid";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { User } from "@shared-types/user";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@store/rootReducer";
-import { update } from "@store/slices/userData";
+import { updateUser } from "@store/slices/user";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   // Получаем данные пользователя из Redux store
-  const userData = useSelector((state: RootState) => state.userData);
+  const user = useSelector((state: RootState) => state.user.user);
 
   // Локальное состояние формы: email и password
   // Не включаем name, так как это страница логина
-  const [formData, setFormData] = useState<Omit<User, "id" | "name">>({
-    email: "",
+  const [formData, setFormData] = useState<FormData>({
+    email: user.email ?? "",
     password: "",
   });
 
-  // При монтировании компонента подставляем email из Redux (если есть)
-  useEffect(() => {
-    setFormData({
-      ...formData,
-      email: userData.data.email,
-    });
-  }, []);
-
   // Универсальный обработчик изменения полей формы
   // При изменении email обновляем Redux store, пароль оставляем только локально
-  const handleFormChange = (key: keyof User, value: string) => {
+  const handleFormChange = (key: keyof FormData, value: string) => {
     setFormData({ ...formData, [key]: value });
 
-    if (key === "email") dispatch(update({ key, value }));
+    if (key === "email") dispatch(updateUser({ key, value }));
   };
 
   // Обработчик отправки формы
-  // Отменяем стандартное поведение (перезагрузку) и выводим данные в консоль.
   // Здесь обычно выполняли бы валидацию и отправку на сервер.
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(JSON.stringify(formData));
+    localStorage.setItem("token", v4());
+    router.push("/chats");
   };
 
   return (
@@ -63,6 +62,7 @@ const LoginPage = () => {
             autoComplete="email"
             value={formData.email}
             onValueChange={(value) => handleFormChange("email", value)}
+            title="Enter your email here"
           />
 
           {/* Поле пароля */}
@@ -73,6 +73,7 @@ const LoginPage = () => {
             autoComplete="current-password"
             value={formData.password}
             onValueChange={(value) => handleFormChange("password", value)}
+            title="Enter your password here"
           />
         </div>
 

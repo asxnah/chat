@@ -5,24 +5,29 @@ import Link from "next/link";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@store/rootReducer";
-import { update } from "@store/slices/userData";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
-import { User } from "@shared-types/user";
+import { useRouter } from "next/navigation";
+import { updateUser } from "@store/slices/user";
+
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+}
 
 const SignupPage = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   // Получаем из Redux уже сохраненные имя/почту (если есть)
-  const { name, email } = useSelector(
-    (state: RootState) => state.userData.data,
-  );
+  const { name, email } = useSelector((state: RootState) => state.user.user);
 
   // Локальный state формы
-  const [formData, setFormData] = useState<Omit<User, "id">>({
-    name: "",
-    email: "",
+  const [formData, setFormData] = useState<FormData>({
+    name: name ?? "",
+    email: email ?? "",
     password: "",
   });
 
@@ -37,21 +42,21 @@ const SignupPage = () => {
   }, [name, email]);
 
   // Универсальный обработчик изменения полей формы
-  // key — одно из полей User, value — новое значение поля.
   // При изменении name/email также диспатчим обновление в Redux (чтобы сохранять прогресс ввода).
-  const handleFormChange = (key: keyof User, value: string) => {
+  const handleFormChange = (key: keyof FormData, value: string) => {
+    // key — одно из полей User, value — новое значение поля.
     setFormData({ ...formData, [key]: value });
 
     // Не сохраняем пароль в глобальный стор — только локально
-    if (key !== "password" && key !== "id") dispatch(update({ key, value }));
+    if (key === "password") return;
+    dispatch(updateUser({ key, value }));
   };
 
   // Обработчик отправки формы
-  // Отменяем стандартное поведение (перезагрузку) и выводим данные в консоль.
   // Здесь обычно выполняли бы валидацию и отправку на сервер.
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(JSON.stringify(formData));
+    router.push("/email-confirmation");
   };
 
   return (
@@ -67,6 +72,7 @@ const SignupPage = () => {
             placeholder="Name"
             value={formData.name}
             onValueChange={(value) => handleFormChange("name", value)}
+            title="Enter your name here"
           />
 
           {/* Поле для email: тип email + автозаполнение */}
@@ -77,6 +83,7 @@ const SignupPage = () => {
             autoComplete="email"
             value={formData.email}
             onValueChange={(value) => handleFormChange("email", value)}
+            title="Enter your email here"
           />
 
           {/* Поле для пароля: тип new-password для подсказок автозаполнения */}
@@ -87,6 +94,7 @@ const SignupPage = () => {
             autoComplete="new-password"
             value={formData.password}
             onValueChange={(value) => handleFormChange("password", value)}
+            title="Enter a new password here"
           />
         </div>
 

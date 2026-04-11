@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Message } from "@shared-types/chat";
 
 interface Messages {
-  data: Message[];
+  messages: Message[];
 }
 
 const initialState: Messages = {
-  data: [],
+  messages: [],
 };
 
 export const messagesSlice = createSlice({
@@ -14,15 +14,13 @@ export const messagesSlice = createSlice({
   initialState,
   reducers: {
     setMessages: (state: Messages, action: PayloadAction<Message[]>) => {
-      state.data = action.payload;
+      state.messages = action.payload;
     },
     addMessage: (state: Messages, action: PayloadAction<Message>) => {
-      state.data.push(action.payload);
+      state.messages.push(action.payload);
     },
   },
 });
 
-// Экспортируем action
 export const { setMessages, addMessage } = messagesSlice.actions;
-// Экспортируем редьюсер по умолчанию
 export default messagesSlice.reducer;

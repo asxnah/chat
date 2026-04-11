@@ -1,13 +1,14 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import userDataReducer from "./slices/userData";
+
+import userReducer from "./slices/user";
 import messagesReducer from "./slices/messages";
-import chatsPreviewReducer from "./slices/chatsPreview";
+import chatsReducer from "./slices/chats";
 import contactsReducer from "./slices/contacts";
 
 export const rootReducer = combineReducers({
-  userData: userDataReducer,
+  user: userReducer,
   messages: messagesReducer,
-  chatsPreview: chatsPreviewReducer,
+  chats: chatsReducer,
   contacts: contactsReducer,
 });
 
