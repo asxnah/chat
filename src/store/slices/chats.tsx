@@ -15,9 +15,11 @@ export const chatsPreviewSlice = createSlice({
   initialState,
   reducers: {
     setChats: (state: Chats, action: PayloadAction<Chat[]>) => {
-      state.chats = action.payload.sort(
-        (a, b) => getLastMessageTime(b) - getLastMessageTime(a),
-      );
+      if (action.payload.length === 0) {
+        state.chats = action.payload.sort(
+          (a, b) => getLastMessageTime(b) - getLastMessageTime(a),
+        );
+      }
     },
     addChat: (state: Chats, action: PayloadAction<Chat>) => {
       state.chats.push(action.payload);
