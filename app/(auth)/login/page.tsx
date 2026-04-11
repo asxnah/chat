@@ -25,17 +25,16 @@ const LoginPage = () => {
   const user = useSelector((state: RootState) => state.user.user);
 
   // Локальное состояние формы: email и password
-  // Не включаем name, так как это страница логина
   const [formData, setFormData] = useState<FormData>({
     email: user.email ?? "",
     password: "",
   });
 
   // Универсальный обработчик изменения полей формы
-  // При изменении email обновляем Redux store, пароль оставляем только локально
   const handleFormChange = (key: keyof FormData, value: string) => {
     setFormData({ ...formData, [key]: value });
 
+    // При изменении email обновляем Redux store
     if (key === "email") dispatch(updateUser({ key, value }));
   };
 
@@ -44,6 +43,15 @@ const LoginPage = () => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     localStorage.setItem("token", v4());
+
+    // Сохраняем имя пользователя в Redux store, извлекая его из email
+    // обычно достали бы из бэканда, но для дева используем часть email до "@"
+    dispatch(
+      updateUser({
+        key: "name",
+        value: formData.email.slice(0, formData.email.indexOf("@")),
+      }),
+    );
     router.push("/chats");
   };
 

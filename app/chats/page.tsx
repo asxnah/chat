@@ -1,41 +1,5 @@
 "use client";
 
-/**
- * ChatsPage
- *
- * Main page component that:
- * - Loads chat previews into Redux
- * - Handles chat selection
- * - Manages current chat messages
- * - Provides search functionality
- * - Handles sending new messages
- *
- * State:
- * - query: string, stores search input value
- * - message: string, stores current message input
- * - currentChatId: string, stores ID of selected chat
- * - currentUser: object, stores basic info of chat partner
- *
- * Redux:
- * - chats: array of chat previews from Redux
- * - messages: array of messages of currently selected chat from Redux
- *
- * Effects:
- * - Sets currentUser when currentChatId changes
- * - Loads chats preview into Redux on mount if not already loaded
- *
- * Memoization:
- * - sortedChats: memoized list of chats filtered by search query
- *
- * Handlers:
- * - selectChat: sets current chat and loads its messages
- * - sendMessage: adds a new message to Redux and clears input
- *
- * Components used:
- * - Input: search and message input field
- * - ChatsList: displays list of chats
- * - ChatPanel: displays messages and input for current chat
- */
 import { useEffect, useMemo, useState } from "react";
 import { Chat as ChatType } from "@shared-types/chat";
 import { User } from "@shared-types/user";
