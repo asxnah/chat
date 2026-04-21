@@ -1,4 +1,4 @@
-import { Bug, CircleUserRound, EllipsisVertical, Image } from "lucide-react";
+import { Bug, CircleUserRound, EllipsisVertical, Image as ImageIcon } from "lucide-react";
 
 /**
  * Props for the ChatMenu component.
@@ -65,7 +65,7 @@ export const ChatMenu = ({ name, menuShown, onClick }: ChatMenuProps) => {
                 className="py-3 px-4 flex items-center gap-3"
                 onClick={() => onClick("bg")}
               >
-                <Image
+                <ImageIcon
                   size={18}
                   strokeWidth={1.2}
                   className="stroke-darkgrey"
