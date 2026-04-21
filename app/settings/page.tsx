@@ -1,35 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { NotificationsTarget } from "./model/types";
 
 import { ActionButton } from "@ui/ActionButton";
-import { Confirm } from "@ui/Confirm";
 import { AppearanceAction } from "./ui/AppearanceAction";
 import { NotificationsAction } from "./ui/NotificationsAction";
 import { UserAction } from "./ui/UserAction";
+import { LogoutAction } from "./ui/LogoutAction";
 
 const SettingsPage = () => {
-  const router = useRouter();
-
-  const [showConfirm, setShowConfirm] = useState(false);
-
   const [isDarkThemed, setDarkThemed] = useState(false);
   const [promoNotificationsOn, setPromoNotificationsOn] = useState(false);
   const [notificationsOn, setNotificationsOn] = useState(false);
-
-  // logout
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    router.push("/login");
-  };
-
-  const confirmLogout = () => {
-    setShowConfirm(false);
-    handleLogout();
-  };
 
   const handleSaveInterfaceColor = (color: string) => {
     console.log(color);
@@ -70,23 +54,9 @@ const SettingsPage = () => {
           </li>
         </ul>
 
-        {/* logout */}
-        <button
-          className="m-8 text-red cursor-pointer"
-          onClick={() => setShowConfirm(true)}
-        >
-          Log Out
-        </button>
+        {/* кнопка logout и popup-подтверждение */}
+        <LogoutAction />
       </main>
-
-      {/* CONFIRM LOGOUT */}
-      {showConfirm && (
-        <Confirm
-          content="Log out?"
-          onDecline={() => setShowConfirm(false)}
-          onSubmit={confirmLogout}
-        />
-      )}
     </>
   );
 };
