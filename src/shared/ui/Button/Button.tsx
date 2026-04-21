@@ -9,6 +9,8 @@ type ButtonProps = {
   disabled?: boolean;
   // Обработчик клика по кнопке
   onClick?: (e: MouseEvent<HTMLButtonElement | HTMLFormElement>) => void;
+  // Доп. классы
+  className?: string;
 };
 
 export const Button = ({
@@ -16,12 +18,13 @@ export const Button = ({
   content,
   disabled,
   onClick,
+  className,
 }: ButtonProps) => {
   return (
     <button
       type={type}
       // Классы Tailwind для стилизации кнопки, включая состояние disabled
-      className={`px-4 py-3 bg-black rounded-2xl cursor-pointer disabled:bg-darkgrey disabled:cursor-not-allowed ${
+      className={`${className} px-4 py-3 bg-black rounded-2xl cursor-pointer disabled:bg-darkgrey disabled:cursor-not-allowed ${
         typeof content === "string"
           ? "w-full text-white text-base font-bold text-center"
           : "w-fit"

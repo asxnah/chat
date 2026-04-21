@@ -3,10 +3,10 @@
  * depending on how recent the date is.
  *
  * Output rules:
- * - If today → returns time in HH:mm format
- * - If yesterday → returns "Yesterday"
- * - If within current week → returns weekday name
- * - Otherwise → returns full date in dd.mm.yyyy format
+ * - If today -> returns time in HH:mm format
+ * - If yesterday -> returns "Yesterday"
+ * - If within current week -> returns weekday name
+ * - Otherwise -> returns full date in dd.mm.yyyy format
  */
 export const formatDateTime = (isoString: string) => {
   // Parse incoming ISO string into Date object

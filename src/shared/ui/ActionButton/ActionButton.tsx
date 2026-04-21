@@ -11,7 +11,7 @@ export const ActionButton = ({ text, onClick, destination }: LinkProps) => {
 
   return (
     <Component
-      className="w-full py-3 px-8 flex items-center justify-between"
+      className="w-full flex items-center justify-between cursor-pointer"
       href={destination}
       onClick={onClick}
     >

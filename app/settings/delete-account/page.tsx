@@ -23,7 +23,12 @@ const DeleteAccountPage = () => {
     <>
       <main className="relative h-full overflow-y-auto p-8 flex flex-col gap-8">
         <div className="flex items-center justify-between">
-          <ChevronLeft className="h-full w-auto" />
+          <button
+            className="h-full w-auto cursor-pointer"
+            onClick={() => router.push("/settings")}
+          >
+            <ChevronLeft className="h-full w-auto" />
+          </button>
           <h1 className="font-medium text-2xl">Account</h1>
         </div>
         <div className="flex flex-col gap-2">
@@ -33,13 +38,16 @@ const DeleteAccountPage = () => {
           </p>
           <small className="text-darkgrey">
             Deleting your account will erase all data, including chats. This
-            process is irreversible — once deleted, no information can be
+            process is irreversible - once deleted, no information can be
             recovered or saved. Your account will be{" "}
             <span className="font-bold">permanently removed in 30 days</span>.
             If you proceed, all data will be lost.
           </small>
         </div>
-        <button className="text-left text-red" onClick={handleDeleteAccount}>
+        <button
+          className="text-left text-red cursor-pointer"
+          onClick={handleDeleteAccount}
+        >
           Delete my account anyway
         </button>
       </main>

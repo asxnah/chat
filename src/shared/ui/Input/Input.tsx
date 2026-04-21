@@ -15,7 +15,7 @@ interface InputProps extends Omit<
   // Callback при изменении значения input
   onValueChange: (value: string) => void;
   // Дополнительные классы
-  classExtension?: string;
+  className?: string;
 }
 
 export const Input = ({
@@ -24,7 +24,7 @@ export const Input = ({
   placeholder = "",
   value,
   onValueChange,
-  classExtension = "",
+  className = "",
   ...rest
 }: InputProps) => {
   return (
@@ -34,7 +34,7 @@ export const Input = ({
 
       {/* Управляемый input */}
       <input
-        className={`px-4 py-3 border-1 border-fill rounded-2xl bg-fill caret-darkgrey text-black text-base transition-colors duration-200 focus-visible:outline-none focus-visible:border-lightgrey placeholder:text-darkgrey placeholder:text-base ${classExtension}`}
+        className={`px-4 py-3 border-1 border-fill rounded-2xl bg-fill caret-darkgrey text-black text-base transition-colors duration-200 focus-visible:outline-none focus-visible:border-lightgrey placeholder:text-darkgrey placeholder:text-base ${className}`}
         id={id}
         name={name}
         value={value}

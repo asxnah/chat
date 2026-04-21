@@ -120,7 +120,7 @@ const ContactsPage = () => {
           <div className="flex gap-4 mx-8 my-3">
             <Button content={<UserPlus className="stroke-white" />} />
             <Input
-              classExtension="w-full"
+              className="w-full"
               id="search"
               placeholder="Search"
               value={query}

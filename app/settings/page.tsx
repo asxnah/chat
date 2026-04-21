@@ -3,6 +3,8 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { NotificationsTarget } from "./model/types";
+
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { RootState } from "@store/rootReducer";
@@ -14,9 +16,10 @@ import { Confirm } from "@ui/Confirm";
 import { Popup } from "@ui/Popup";
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
-
-// feature: ввод кода
 import { CodeInput } from "@features/code-input";
+
+import { AppearanceAction } from "./ui/AppearanceAction";
+import { NotificationsAction } from "./ui/NotificationsAction";
 
 interface FormData {
   name: string;
@@ -34,6 +37,10 @@ const SettingsPage = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [showCodePopup, setShowCodePopup] = useState(false);
+
+  const [isDarkThemed, setDarkThemed] = useState(false);
+  const [promoNotificationsOn, setPromoNotificationsOn] = useState(false);
+  const [notificationsOn, setNotificationsOn] = useState(false);
 
   // локальный черновик формы
   const [formData, setFormData] = useState<FormData>({
@@ -86,7 +93,7 @@ const SettingsPage = () => {
   const handleCodeSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    // если код неверный — показываем ошибку
+    // если код неверный - показываем ошибку
     if (code.join("") !== CODE) {
       setIsCorrect(false);
       return;
@@ -101,7 +108,7 @@ const SettingsPage = () => {
 
   // кнопка Save в edit popup
   const handleSaveClick = () => {
-    // если email изменился → нужен код подтверждения
+    // если email изменился нужен код подтверждения
     if (formData.email !== email) {
       setPendingEmail(formData.email);
       setShowEditPopup(false);
@@ -113,10 +120,19 @@ const SettingsPage = () => {
     }
   };
 
+  const handleSaveInterfaceColor = (color: string) => {
+    console.log(color);
+  };
+
+  const handleSetNotifications = (target: NotificationsTarget) => {
+    if (target === "promo") setPromoNotificationsOn((prev) => !prev);
+    if (target === "chats") setNotificationsOn((prev) => !prev);
+  };
+
   return (
     <>
       <main>
-        {/* USER — всегда берёт ТОЛЬКО Redux (подтверждённые данные) */}
+        {/* USER - Redux */}
         <User
           id={""}
           name={name}
@@ -126,7 +142,7 @@ const SettingsPage = () => {
         />
 
         {/* меню */}
-        <ul>
+        <ul className="px-8 py-6 grid gap-6">
           <li>
             <ActionButton
               text="Account"
@@ -134,10 +150,18 @@ const SettingsPage = () => {
             />
           </li>
           <li>
-            <ActionButton text="Appearance" />
+            <AppearanceAction
+              checked={isDarkThemed}
+              onToggle={() => setDarkThemed((prev) => !prev)}
+              onSave={handleSaveInterfaceColor}
+            />
           </li>
           <li>
-            <ActionButton text="Notifications" />
+            <NotificationsAction
+              checkedPromo={promoNotificationsOn}
+              checkedChats={notificationsOn}
+              onToggle={handleSetNotifications}
+            />
           </li>
         </ul>
 

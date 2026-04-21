@@ -5,12 +5,19 @@ type TogglerProps = {
   checked: boolean;
   // Функция, вызываемая при клике для переключения состояния
   onToggle: () => void;
+  // Доп. классы
+  className?: string;
 };
 
-export const Toggler = ({ content, checked, onToggle }: TogglerProps) => {
+export const Toggler = ({
+  content,
+  checked,
+  onToggle,
+  className,
+}: TogglerProps) => {
   return (
     // Контейнер переключателя с текстом и кнопкой
-    <div className="flex items-center justify-between px-8 py-3">
+    <div className={`flex items-center justify-between ${className}`}>
       {/* Текст рядом с переключателем */}
       <p>{content}</p>
 

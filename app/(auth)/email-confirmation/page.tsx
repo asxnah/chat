@@ -29,13 +29,13 @@ const EmailConfirmation = () => {
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Если код неверный — показываем ошибку
+    // Если код неверный - показываем ошибку
     if (code.join("") !== CODE) {
       setIsCorrect(false);
       return;
     }
 
-    // Если код верный — создаём токен и редиректим
+    // Если код верный - создаём токен и редиректим
     setIsCorrect(true);
     localStorage.setItem("token", v4());
     router.push("/chats");

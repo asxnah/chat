@@ -56,7 +56,7 @@ export const CodeInput = ({
         {code.map((c, index) => (
           <Input
             key={index}
-            classExtension="w-11.5 h-11.5 text-center"
+            className="w-11.5 h-11.5 text-center"
             id={`code-${index}`}
             placeholder="_"
             autoComplete="email"

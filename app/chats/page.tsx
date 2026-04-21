@@ -156,7 +156,7 @@ const ChatsPage = () => {
         <div className="h-full flex flex-col">
           {/* Search input */}
           <Input
-            classExtension="mx-8 my-3"
+            className="mx-8 my-3"
             id="search"
             placeholder="Search"
             value={query}

@@ -44,10 +44,10 @@ const SignupPage = () => {
   // Универсальный обработчик изменения полей формы
   // При изменении name/email также диспатчим обновление в Redux (чтобы сохранять прогресс ввода).
   const handleFormChange = (key: keyof FormData, value: string) => {
-    // key — одно из полей User, value — новое значение поля.
+    // key - одно из полей User, value - новое значение поля.
     setFormData({ ...formData, [key]: value });
 
-    // Не сохраняем пароль в глобальный стор — только локально
+    // Не сохраняем пароль в глобальный стор - только локально
     if (key === "password") return;
     dispatch(updateUser({ key, value }));
   };
