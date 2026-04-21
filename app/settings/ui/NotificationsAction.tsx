@@ -1,23 +1,20 @@
 import { useState } from "react";
 
-import { NotificationsTarget } from "../model/types";
-
 import { ActionButton } from "@ui/ActionButton";
 import { Popup } from "@ui/Popup";
 import { Toggler } from "@ui/Toggler";
 
-interface NotificationsActionProps {
-  checkedPromo: boolean;
-  checkedChats: boolean;
-  onToggle: (target: NotificationsTarget) => void;
-}
+export type NotificationsTarget = "promo" | "chats";
 
-export const NotificationsAction = ({
-  checkedPromo,
-  checkedChats,
-  onToggle,
-}: NotificationsActionProps) => {
+export const NotificationsAction = () => {
   const [popupShown, setPopupShown] = useState(false);
+  const [promoNotifs, togglePromoNotifs] = useState(false);
+  const [notifs, toggleNotifs] = useState(false);
+
+  const handleToggleNotifs = (target: NotificationsTarget) => {
+    if (target === "promo") togglePromoNotifs((prev) => !prev);
+    if (target === "chats") toggleNotifs((prev) => !prev);
+  };
 
   return (
     <>
@@ -28,13 +25,13 @@ export const NotificationsAction = ({
         <Popup heading="Appearance" onClose={() => setPopupShown(false)}>
           <Toggler
             content="Promotional"
-            checked={checkedPromo}
-            onToggle={() => onToggle("promo")}
+            checked={promoNotifs}
+            onToggle={() => handleToggleNotifs("promo")}
           />
           <Toggler
             content="All chats"
-            checked={checkedChats}
-            onToggle={() => onToggle("chats")}
+            checked={notifs}
+            onToggle={() => handleToggleNotifs("chats")}
           />
         </Popup>
       )}

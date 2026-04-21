@@ -8,23 +8,18 @@ import { Input } from "@ui/Input";
 import { CircleIcon } from "./icons/CircleIcon";
 import { Button } from "@ui/Button";
 
-interface AppearanceActionProps {
-  checked: boolean;
-  onToggle: () => void;
-  onSave: (interfaceColor: string) => void;
-}
-
-export const AppearanceAction = ({
-  checked,
-  onToggle,
-  onSave,
-}: AppearanceActionProps) => {
+export const AppearanceAction = () => {
   const [popupShown, setPopupShown] = useState(false);
   const [currentColor, setCurrentColor] = useState("#312F2C");
+  const [isDarkThemed, setDarkThemed] = useState(false);
+
+  const setColor = (color: string) => {
+    console.log(color);
+  };
 
   const handleSet = () => {
     setPopupShown(false);
-    onSave(currentColor);
+    setColor(currentColor);
   };
 
   return (
@@ -37,8 +32,8 @@ export const AppearanceAction = ({
           <div className="grid gap-6">
             <Toggler
               content="Dark theme"
-              checked={checked}
-              onToggle={onToggle}
+              checked={isDarkThemed}
+              onToggle={() => setDarkThemed((prev) => !prev)}
             />
             <div className="flex items-center justify-between">
               <p>Accent color</p>

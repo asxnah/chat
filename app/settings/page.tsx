@@ -1,9 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
-import { NotificationsTarget } from "./model/types";
-
 import { ActionButton } from "@ui/ActionButton";
 import { AppearanceAction } from "./ui/AppearanceAction";
 import { NotificationsAction } from "./ui/NotificationsAction";
@@ -11,23 +7,10 @@ import { UserAction } from "./ui/UserAction";
 import { LogoutAction } from "./ui/LogoutAction";
 
 const SettingsPage = () => {
-  const [isDarkThemed, setDarkThemed] = useState(false);
-  const [promoNotificationsOn, setPromoNotificationsOn] = useState(false);
-  const [notificationsOn, setNotificationsOn] = useState(false);
-
-  const handleSaveInterfaceColor = (color: string) => {
-    console.log(color);
-  };
-
-  const handleSetNotifications = (target: NotificationsTarget) => {
-    if (target === "promo") setPromoNotificationsOn((prev) => !prev);
-    if (target === "chats") setNotificationsOn((prev) => !prev);
-  };
-
   return (
     <>
       <main>
-        {/* профиль и popups редактирования */}
+        {/* профиль и ее popups */}
         <UserAction />
 
         {/* меню */}
@@ -39,18 +22,12 @@ const SettingsPage = () => {
             />
           </li>
           <li>
-            <AppearanceAction
-              checked={isDarkThemed}
-              onToggle={() => setDarkThemed((prev) => !prev)}
-              onSave={handleSaveInterfaceColor}
-            />
+            {/* кнопка Appearance и ее popup */}
+            <AppearanceAction />
           </li>
           <li>
-            <NotificationsAction
-              checkedPromo={promoNotificationsOn}
-              checkedChats={notificationsOn}
-              onToggle={handleSetNotifications}
-            />
+            {/* кнопка Notifications и ее popup */}
+            <NotificationsAction />
           </li>
         </ul>
 
