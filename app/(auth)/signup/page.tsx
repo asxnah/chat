@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 import Link from "next/link";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -30,16 +30,6 @@ const SignupPage = () => {
     email: email ?? "",
     password: "",
   });
-
-  // Синхронизируем локальное состояние формы с данными из Redux при их изменении
-  // Это позволяет подставить уже введенные ранее имя/почту в форму.
-  useEffect(() => {
-    setFormData((data) => ({
-      ...data,
-      name,
-      email,
-    }));
-  }, [name, email]);
 
   // Универсальный обработчик изменения полей формы
   // При изменении name/email также диспатчим обновление в Redux (чтобы сохранять прогресс ввода).
