@@ -20,7 +20,7 @@ export const ContactPanel = ({ id, user, onClick }: ContactPanelProps) => {
         onClick={() => onClick(id)}
       />
 
-      <div>
+      <div className="px-8 grid gap-6">
         <ActionButton
           text="Write a message"
           destination={`/chats?userId=${id}`}

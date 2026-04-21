@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { Contact } from "@shared-types/user";
@@ -39,16 +39,17 @@ const ContactsPage = () => {
   const [query, setQuery] = useState<string>("");
 
   /**
-   * Local state: currently selected user
+   * Handles contact selection
+   * - Updates selected contact state
+   * - Updates URL search param `userId`
+   * @param id Contact ID
    */
-  const [user, setUser] = useState<Omit<Contact, "isOnline" | "id"> | null>(
-    null,
+  const selectContact = useCallback(
+    (id: string) => {
+      router.replace(`?userId=${id}`);
+    },
+    [router],
   );
-
-  /**
-   * Local state: currently selected contact ID
-   */
-  const [currentContactId, setCurrentContactId] = useState<string>("");
 
   /**
    * On mount:
@@ -61,17 +62,7 @@ const ContactsPage = () => {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, []);
-
-  /**
-   * Effect for selecting contact when URL param changes
-   * - Runs when `id` or `contacts` change
-   */
-  useEffect(() => {
-    if (id && contacts.length > 0) {
-      selectContact(id);
-    }
-  }, [id, contacts]);
+  }, [dispatch]);
 
   /**
    * Memoized filtered contacts based on search query
@@ -86,25 +77,25 @@ const ContactsPage = () => {
   }, [contacts, query]);
 
   /**
-   * Handles contact selection
-   * - Updates selected contact state
-   * - Updates URL search param `userId`
-   * @param id Contact ID
+   * Derived state: currently selected contact ID
    */
-  const selectContact = (id: string) => {
-    setCurrentContactId(id);
+  const currentContactId = id || "";
+
+  /**
+   * Derived state: currently selected user
+   */
+  const user = useMemo<Omit<Contact, "isOnline" | "id"> | null>(() => {
+    if (!id || contacts.length === 0) return null;
 
     const currentContact = contacts.find((contact) => contact.id === id);
 
-    if (currentContact) {
-      setUser({
-        name: currentContact.name,
-        email: currentContact.email,
-      });
-    }
+    if (!currentContact) return null;
 
-    router.replace(`?userId=${id}`);
-  };
+    return {
+      name: currentContact.name,
+      email: currentContact.email,
+    };
+  }, [id, contacts]);
 
   /**
    * Renders the main contacts page layout
