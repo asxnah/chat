@@ -55,26 +55,21 @@ const ChatsPage = () => {
 
   /**
    * Local state: basic info of currently selected chat user
+   * Derived from currentChatId (no state to avoid unnecessary effects)
    */
-  const [currentUser, setCurrentUser] = useState<
-    Omit<User, "password" | "email">
-  >({
-    id: "",
-    name: "",
-  });
-
-  /**
-   * Updates currentUser whenever currentChatId changes
-   */
-  useEffect(() => {
+  const currentUser = useMemo<Omit<User, "password" | "email">>(() => {
     const currentChat = CHATS.find((chat) => chat.chatId === currentChatId);
     if (currentChat) {
       const user = currentChat.user;
-      setCurrentUser({
+      return {
         id: user.userId,
         name: user.name,
-      });
+      };
     }
+    return {
+      id: "",
+      name: "",
+    };
   }, [currentChatId]);
 
   /**
@@ -88,7 +83,7 @@ const ChatsPage = () => {
       }, 300);
       return () => clearTimeout(timer);
     }
-  }, [messages]);
+  }, [messages, dispatch]);
 
   /**
    * Returns chats filtered by search query
