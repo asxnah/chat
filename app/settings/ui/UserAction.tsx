@@ -21,7 +21,9 @@ const CODE = "1111";
 export const UserAction = () => {
   const dispatch = useDispatch();
 
-  const { name, email } = useSelector((state: RootState) => state.user.user);
+  const { id, name, email } = useSelector(
+    (state: RootState) => state.user.user,
+  );
 
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [showCodePopup, setShowCodePopup] = useState(false);
@@ -97,7 +99,7 @@ export const UserAction = () => {
     <>
       {/* USER - Redux */}
       <User
-        id={""}
+        id={id}
         name={name}
         email={email}
         onClick={() => setShowEditPopup(true)}
