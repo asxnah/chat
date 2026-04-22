@@ -16,15 +16,6 @@ import { Input } from "@ui/Input";
 import { ChatsList } from "./ui/ChatsList";
 import { ChatPanel } from "./ui/ChatPanel";
 
-import { chatsPreview as chatsPreviewData } from "./mocks.json";
-const CHATS_PREVIEW: ChatType[] = chatsPreviewData as ChatType[];
-
-import { chats as chatsData } from "./mocks.json";
-const CHATS: ChatType[] = chatsData as ChatType[];
-
-import { user as userData } from "../mocks.json";
-const USER = userData as Omit<User, "password">;
-
 const ChatsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -38,6 +29,7 @@ const ChatsPage = () => {
    */
   const chats = useSelector((state: RootState) => state.chats.chats);
 
+  const userId = useSelector((state: RootState) => state.user.user.id);
   /**
    * Local state: search query
    */
@@ -58,7 +50,7 @@ const ChatsPage = () => {
    * Derived from currentChatId (no state to avoid unnecessary effects)
    */
   const currentUser = useMemo<Omit<User, "password" | "email">>(() => {
-    const currentChat = CHATS.find((chat) => chat.chatId === currentChatId);
+    const currentChat = chats.find((chat) => chat.chatId === currentChatId);
     if (currentChat) {
       const user = currentChat.user;
       return {
@@ -79,7 +71,7 @@ const ChatsPage = () => {
   useEffect(() => {
     if (messages.length === 0) {
       const timer = setTimeout(() => {
-        dispatch(setChats(CHATS_PREVIEW));
+        dispatch(setChats([]));
       }, 300);
       return () => clearTimeout(timer);
     }
@@ -107,7 +99,7 @@ const ChatsPage = () => {
     setCurrentChatId(id);
     setMessage("");
 
-    const currentChat = CHATS.find((chat) => chat.chatId === id);
+    const currentChat = chats.find((chat) => chat.chatId === id);
 
     if (currentChat) {
       dispatch(setMessages(currentChat.messages));
@@ -129,7 +121,7 @@ const ChatsPage = () => {
       addMessage({
         messageId: v4(),
         chatId: currentChatId,
-        userId: USER.id,
+        userId: userId,
         text: trimmed,
         isRead: true,
         createdAt: new Date().toISOString(),

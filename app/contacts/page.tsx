@@ -16,9 +16,6 @@ import { User } from "@widgets/User";
 import { UserPlus } from "lucide-react";
 import { ContactPanel } from "./ui/ContactPanel";
 
-import { contacts as data } from "./mocks.json";
-const CONTACTS: Contact[] = data;
-
 const ContactsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
@@ -58,7 +55,7 @@ const ContactsPage = () => {
    */
   useEffect(() => {
     const timer = setTimeout(() => {
-      dispatch(setContacts(CONTACTS));
+      dispatch(setContacts([]));
     }, 300);
 
     return () => clearTimeout(timer);
