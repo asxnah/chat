@@ -95,6 +95,32 @@ export const UserAction = () => {
     }
   };
 
+  const handleClose = (popup: "edit" | "code") => {
+    // если закрываем попап кода
+    if (popup === "code") {
+      // закрываем попап кода
+      setShowCodePopup(false);
+      // открываем попап редактирования имени и email
+      setShowEditPopup(true);
+
+      // сбрасываем код и его корректность
+      setCode(["", "", "", ""]);
+      setIsCorrect(true);
+    }
+
+    // если попап редактирования имени и email
+    if (popup === "edit") {
+      // просто закрываем его
+      setShowEditPopup(false);
+    }
+
+    // данные возвращаем в изначальное состояние в любом случае
+    setFormData({
+      email,
+      name,
+    });
+  };
+
   return (
     <>
       {/* USER - Redux */}
@@ -108,7 +134,7 @@ export const UserAction = () => {
 
       {/* EDIT POPUP */}
       {showEditPopup && (
-        <Popup heading="Profile edit" onClose={() => setShowEditPopup(false)}>
+        <Popup heading="Profile edit" onClose={() => handleClose("edit")}>
           <div className="flex flex-col gap-8">
             {/* локальная форма (черновик) */}
             <div className="flex flex-col gap-4">
@@ -138,26 +164,7 @@ export const UserAction = () => {
 
       {/* CODE POPUP */}
       {showCodePopup && (
-        <Popup
-          heading="Confirm new email"
-          onClose={() => {
-            // возвращаемся в edit без сохранения
-            setShowCodePopup(false);
-            setShowEditPopup(true);
-
-            // сброс кода
-            setCode(["", "", "", ""]);
-            setIsCorrect(true);
-
-            // ВАЖНО:
-            // не трогаем Redux и не применяем изменения
-            // просто возвращаем старый email в форму
-            setFormData((prev) => ({
-              ...prev,
-              email,
-            }));
-          }}
-        >
+        <Popup heading="Confirm new email" onClose={() => handleClose("code")}>
           <form className="flex flex-col gap-8" onSubmit={handleCodeSubmit}>
             <div className="flex flex-col gap-2">
               <p>
