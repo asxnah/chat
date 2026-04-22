@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import { updateUser } from "@store/slices/user";
 
 interface FormData {
-  name: string;
   email: string;
   password: string;
 }
@@ -22,11 +21,10 @@ const SignupPage = () => {
   const router = useRouter();
 
   // Получаем из Redux уже сохраненные имя/почту (если есть)
-  const { name, email } = useSelector((state: RootState) => state.user.user);
+  const { email } = useSelector((state: RootState) => state.user.user);
 
   // Локальный state формы
   const [formData, setFormData] = useState<FormData>({
-    name: name ?? "",
     email: email ?? "",
     password: "",
   });
@@ -56,15 +54,6 @@ const SignupPage = () => {
         <h1 className="text-4xl font-semibold text-center">Welcome</h1>
 
         <div className="flex flex-col gap-4">
-          {/* Поле для имени */}
-          <Input
-            id="Name"
-            placeholder="Name"
-            value={formData.name}
-            onValueChange={(value) => handleFormChange("name", value)}
-            title="Enter your name here"
-          />
-
           {/* Поле для email: тип email + автозаполнение */}
           <Input
             id="Email"
@@ -93,7 +82,6 @@ const SignupPage = () => {
           type="submit"
           content="Continue"
           disabled={
-            formData.name === "" ||
             formData.email === "" ||
             formData.password === ""
           }
