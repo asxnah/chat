@@ -1,20 +1,22 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import Link from "next/link";
-
-import { Button } from "@ui/Button";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { RootState } from "@store/rootReducer";
+import Link from "next/link";
 import { v4 } from "uuid";
 
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@store/rootReducer";
+import { updateUser } from "@store/slices/user";
+
+import { Button } from "@ui/Button";
 import { CodeInput } from "@features/code-input";
 
 const CODE = "1111";
 
 const EmailConfirmation = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   // Состояние для хранения кода подтверждения (4 отдельных символа)
   const [code, setCode] = useState<string[]>(["", "", "", ""]);
@@ -23,7 +25,7 @@ const EmailConfirmation = () => {
   const [isCorrect, setIsCorrect] = useState(true);
 
   // Получаем email из Redux
-  const storageEmail = useSelector((state: RootState) => state.user.user.email);
+  const email = useSelector((state: RootState) => state.user.user.email);
 
   // Обработчик отправки формы (проверка только по кнопке)
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -35,9 +37,18 @@ const EmailConfirmation = () => {
       return;
     }
 
-    // Если код верный - создаём токен и редиректим
+    // Если код верный - создаём токен, записываем placeholder-имя
     setIsCorrect(true);
+
     localStorage.setItem("token", v4());
+    dispatch(updateUser({ key: "id", value: v4() }));
+    dispatch(
+      updateUser({
+        key: "name",
+        value: email.slice(0, email.indexOf("@")),
+      }),
+    );
+
     router.push("/chats");
   };
 
@@ -51,7 +62,7 @@ const EmailConfirmation = () => {
           </h1>
 
           <p className="text-darkgrey text-center">
-            The code was sent to {storageEmail}.{" "}
+            The code was sent to {email}.{" "}
             <Link className="underline" href="/signup">
               Change email
             </Link>
