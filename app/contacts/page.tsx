@@ -12,9 +12,15 @@ import { setContacts } from "@store/slices/contacts";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
-import { User } from "@widgets/User";
 import { UserPlus } from "lucide-react";
 import { ContactPanel } from "./ui/ContactPanel";
+import { ContactsList } from "./ui/ContactsList";
+import { Popup } from "@ui/Popup";
+
+interface FormData {
+  name: string;
+  email: string;
+}
 
 const ContactsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,6 +40,13 @@ const ContactsPage = () => {
    * Local state: search query
    */
   const [query, setQuery] = useState<string>("");
+
+  const [popupShown, setPopupShown] = useState(false);
+
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    email: "",
+  });
 
   /**
    * Handles contact selection
@@ -94,43 +107,41 @@ const ContactsPage = () => {
     };
   }, [id, contacts]);
 
+  const createContact = () => {
+    setPopupShown(false);
+  };
+
   /**
    * Renders the main contacts page layout
    * - Left panel: search + contacts list
    * - Right panel: current contact details
    */
   return (
-    <main className="flex">
+    <main className="flex relative">
       {/* Left panel: search + contacts list */}
       <div className="w-120 shrink-0 border-r border-r-stroke">
         <div className="h-full flex flex-col">
           {/* Search input + add contact button */}
           <div className="flex gap-4 mx-8 my-3">
             <Button content={<UserPlus className="stroke-white" />} />
-            <Input
-              className="w-full"
-              id="search"
-              placeholder="Search"
-              value={query}
-              onValueChange={setQuery}
-            />
+            {sortedContacts.length !== 0 && (
+              <Input
+                className="w-full"
+                id="search"
+                placeholder="Search"
+                value={query}
+                onValueChange={setQuery}
+              />
+            )}
           </div>
 
           {/* Contacts list */}
-          <div>
-            {sortedContacts.map((contact) => (
-              <User
-                key={contact.id}
-                id={contact.id}
-                isAccount={false}
-                name={contact.name}
-                email={contact.email}
-                onClick={selectContact}
-                isSelected={currentContactId === contact.id}
-                isOnline={contact.isOnline}
-              />
-            ))}
-          </div>
+          <ContactsList
+            sortedContacts={sortedContacts}
+            onSelect={selectContact}
+            selectedContactId={currentContactId}
+            onCreate={() => setPopupShown(true)}
+          />
         </div>
       </div>
 
@@ -143,8 +154,40 @@ const ContactsPage = () => {
         />
       ) : (
         <p className="w-full text-center text-darkgrey mt-auto mb-8">
-          Select a chat or a contact to start messaging
+          Select a contact to see the details
         </p>
+      )}
+
+      {popupShown && (
+        <Popup heading="New contact" onClose={() => setPopupShown(false)}>
+          <div className="grid gap-8">
+            <div className="flex flex-col gap-4">
+              <Input
+                id="name"
+                placeholder="Name"
+                value={formData.name}
+                onValueChange={(value) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    name: value,
+                  }))
+                }
+              />
+              <Input
+                id="email"
+                placeholder="email@example.com"
+                value={formData.email}
+                onValueChange={(value) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    email: value,
+                  }))
+                }
+              />
+            </div>
+            <Button content="Create" onClick={createContact} />
+          </div>
+        </Popup>
       )}
     </main>
   );

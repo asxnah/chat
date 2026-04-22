@@ -1,5 +1,7 @@
-import { Chat as ChatType } from "@shared-types/chat";
+import Link from "next/link";
 import { formatDateTime } from "../utils/formatter";
+import { Chat as ChatType } from "@shared-types/chat";
+import { ChevronRight } from "lucide-react";
 
 /**
  * Props for the ChatsList component.
@@ -88,7 +90,12 @@ export const ChatsList = ({
         No chat with <span className="font-semibold">{query}</span> found
       </p>
     ) : (
-      <p className="mx-8 mt-3 text-center text-darkgrey">Nothing found</p>
+      <div className="mx-8 mt-3 h-full flex flex-col items-center justify-center gap-1">
+        <p className="text-darkgrey">You don&#39;t have chats yet</p>
+        <Link className="text-darkgrey underline" href="/contacts">
+          Send your first message
+        </Link>
+      </div>
     );
   }
 };

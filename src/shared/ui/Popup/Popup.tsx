@@ -18,7 +18,7 @@ export const Popup = ({ heading, children, onClose }: PopupProps) => {
       <header className="relative p-8 w-128 flex flex-col gap-8 rounded-2xl bg-white">
         {/* Заголовок и кнопка закрытия */}
         <header className="flex items-center justify-between">
-          <h3 className="text-black text-xl font-semibold">{heading}</h3>
+          <h3 className="text-black text-2xl font-semibold">{heading}</h3>
           <button className="cursor-pointer" type="button" onClick={onClose}>
             <X className="stroke-lightgrey" />
           </button>

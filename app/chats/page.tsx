@@ -142,13 +142,15 @@ const ChatsPage = () => {
       <div className="w-120 shrink-0 border-r border-r-stroke">
         <div className="h-full flex flex-col">
           {/* Search input */}
-          <Input
-            className="mx-8 my-3"
-            id="search"
-            placeholder="Search"
-            value={query}
-            onValueChange={setQuery}
-          />
+          {sortedChats.length !== 0 && (
+            <Input
+              className="mx-8 my-3"
+              id="search"
+              placeholder="Search"
+              value={query}
+              onValueChange={setQuery}
+            />
+          )}
 
           {/* Chats list */}
           <ChatsList
