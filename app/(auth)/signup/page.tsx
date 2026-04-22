@@ -1,15 +1,15 @@
 "use client";
 
 import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@store/rootReducer";
+import { updateUser } from "@store/slices/user";
 
 import { Input } from "@ui/Input";
 import { Button } from "@ui/Button";
-import { useRouter } from "next/navigation";
-import { updateUser } from "@store/slices/user";
 
 interface FormData {
   email: string;
@@ -81,10 +81,7 @@ const SignupPage = () => {
         <Button
           type="submit"
           content="Continue"
-          disabled={
-            formData.email === "" ||
-            formData.password === ""
-          }
+          disabled={formData.email === "" || formData.password === ""}
         />
 
         {/* Ссылка на страницу логина */}
