@@ -16,8 +16,6 @@
   color: #312f2c;
   background-color: #fafafa;
 
-  --width: 32rem;
-
   /* Scrollbar */
   ::-webkit-scrollbar {
     width: 0.375rem;
