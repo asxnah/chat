@@ -9,7 +9,7 @@ export type NotificationsTarget = "promo" | "chats";
 export const NotificationsAction = () => {
   const [popupShown, setPopupShown] = useState(false);
   const [promoNotifs, togglePromoNotifs] = useState(false);
-  const [notifs, toggleNotifs] = useState(false);
+  const [notifs, toggleNotifs] = useState(true);
 
   const handleToggleNotifs = (target: NotificationsTarget) => {
     if (target === "promo") togglePromoNotifs((prev) => !prev);
