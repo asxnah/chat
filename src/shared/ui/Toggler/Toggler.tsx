@@ -4,9 +4,11 @@ type TogglerProps = {
   // Состояние переключателя (вкл/выкл)
   checked: boolean;
   // Функция, вызываемая при клике для переключения состояния
-  onToggle: () => void;
+  onToggle?: () => void;
   // Доп. классы
   className?: string;
+  // состояние неактивности
+  disabled?: boolean;
 };
 
 export const Toggler = ({
@@ -14,6 +16,7 @@ export const Toggler = ({
   checked,
   onToggle,
   className,
+  disabled = false,
 }: TogglerProps) => {
   return (
     // Контейнер переключателя с текстом и кнопкой
@@ -22,9 +25,13 @@ export const Toggler = ({
       <p>{content}</p>
 
       {/* Кнопка для переключения состояния */}
-      <button type="button" onClick={onToggle}>
+      <button
+        className={disabled ? "cursor-not-allowed" : "cursor-pointer"}
+        type="button"
+        onClick={onToggle}
+        disabled={disabled}
+      >
         <svg
-          className="cursor-pointer"
           width="32"
           height="16"
           viewBox="0 0 32 16"

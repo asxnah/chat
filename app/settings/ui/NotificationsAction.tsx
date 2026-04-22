@@ -1,20 +1,19 @@
 import { useState } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@store/rootReducer";
+import { setNotifs } from "@store/slices/chats";
+
 import { ActionButton } from "@ui/ActionButton";
 import { Popup } from "@ui/Popup";
 import { Toggler } from "@ui/Toggler";
 
-export type NotificationsTarget = "promo" | "chats";
-
 export const NotificationsAction = () => {
-  const [popupShown, setPopupShown] = useState(false);
-  const [promoNotifs, togglePromoNotifs] = useState(false);
-  const [notifs, toggleNotifs] = useState(true);
+  const dispatch = useDispatch();
 
-  const handleToggleNotifs = (target: NotificationsTarget) => {
-    if (target === "promo") togglePromoNotifs((prev) => !prev);
-    if (target === "chats") toggleNotifs((prev) => !prev);
-  };
+  const notifs = useSelector((state: RootState) => state.chats.notifs);
+
+  const [popupShown, setPopupShown] = useState(false);
 
   return (
     <>
@@ -23,15 +22,11 @@ export const NotificationsAction = () => {
       {/* popup */}
       {popupShown && (
         <Popup heading="Appearance" onClose={() => setPopupShown(false)}>
-          <Toggler
-            content="Promotional"
-            checked={promoNotifs}
-            onToggle={() => handleToggleNotifs("promo")}
-          />
+          <Toggler content="Promotional" checked={false} disabled />
           <Toggler
             content="All chats"
             checked={notifs}
-            onToggle={() => handleToggleNotifs("chats")}
+            onToggle={() => dispatch(setNotifs(!notifs))}
           />
         </Popup>
       )}

@@ -10,8 +10,8 @@ import contactsReducer from "./slices/contacts";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
-  blacklist: ["chats", "messages", "contacts"],
+  whitelist: ["user", "chats", "contacts"],
+  blacklist: ["messages"],
 };
 
 const rootReducer = combineReducers({
