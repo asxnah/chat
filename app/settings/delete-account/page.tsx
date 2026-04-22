@@ -1,12 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useClearSession } from "../lib/useClearSession";
 import { ChevronLeft } from "lucide-react";
 import { Confirm } from "@ui/Confirm";
-import { useState } from "react";
 
 const DeleteAccountPage = () => {
   const router = useRouter();
+  const clear = useClearSession();
 
   const [showConfirm, setShowConfirm] = useState(false);
 
@@ -15,7 +17,7 @@ const DeleteAccountPage = () => {
   };
 
   const confirmDeleteAccount = () => {
-    localStorage.removeItem("token");
+    clear();
     router.push("/signup");
   };
 

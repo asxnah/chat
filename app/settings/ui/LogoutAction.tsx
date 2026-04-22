@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useClearSession } from "../lib/useClearSession";
 import { Confirm } from "@ui/Confirm";
 
 export const LogoutAction = () => {
   const router = useRouter();
+  const clear = useClearSession();
 
   const [showConfirm, setShowConfirm] = useState(false);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    clear();
     router.push("/login");
   };
 
