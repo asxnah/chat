@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { formatDateTime } from "../utils/formatter";
 import { Chat as ChatType } from "@shared-types/chat";
-import { ChevronRight } from "lucide-react";
 
 /**
  * Props for the ChatsList component.

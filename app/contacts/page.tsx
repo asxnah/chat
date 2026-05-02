@@ -124,15 +124,13 @@ const ContactsPage = () => {
           {/* Search input + add contact button */}
           <div className="flex gap-4 mx-8 my-3">
             <Button content={<UserPlus className="stroke-white" />} />
-            {sortedContacts.length !== 0 && (
-              <Input
-                className="w-full"
-                id="search"
-                placeholder="Search"
-                value={query}
-                onValueChange={setQuery}
-              />
-            )}
+            <Input
+              className="w-full"
+              id="search"
+              placeholder="Search"
+              value={query}
+              onValueChange={setQuery}
+            />
           </div>
 
           {/* Contacts list */}
